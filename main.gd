@@ -61,7 +61,6 @@ func _rock_mouse_entered():
 
 func _rock_mouse_exited():
 	mouse_on_rock = false
-	rock_is_pressed = false
 
 func _rock_input_event(__,event:InputEvent,___):
 	if event is InputEventMouseButton:
