@@ -16,10 +16,17 @@ func disable():
 	hide()
 	active = false
 
+func play_trans_in_anim():
+	show()
+	$AnimationPlayer.play("trans_in")
+	
+func play_trans_out_anim():
+	$AnimationPlayer.play("trans_out")
+	await $AnimationPlayer.animation_finished
+
 func enable():
 	show()
 	active = true
-
 
 
 func _ready() -> void:
@@ -34,6 +41,8 @@ func _process(_delta: float) -> void:
 		parallax_2d.scroll_offset.y = rope_height
 		
 		if int(rope_height) > rope_max_height:
+			active = false
+			await play_trans_out_anim()
 			finish_minigame.emit()
 			rope_height = 0
 			mouse_rope_start_height = 0

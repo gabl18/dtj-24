@@ -19,25 +19,38 @@ func _ready() -> void:
 
 
 func change_game():
+	
+	_disable_game()
+	if not active_game == games.rockgame:
+		_play_game_trans_in()
+		await get_tree().create_timer(1).timeout
+	_enable_game()
+
+func _disable_game():
+	if active_game != games.rockgame:
+		rock_game.disable()
+		climb_both_hands = false
+	
+	if active_game != games.rope:
+		rope_game.disable()
+		climb_rope = false
+
+func _enable_game():
 	if active_game == games.rockgame:
 		rock_game.enable()
 		climb_both_hands = true
-	else:
-		rock_game.disable()
-		climb_both_hands = false
 	
 	if active_game == games.rope:
 		rope_game.enable()
 		climb_rope = true
-	else:
-		rope_game.disable()
-		climb_rope = false
 
+func _play_game_trans_in():
+	if active_game == games.rope:
+		rope_game.play_trans_in_anim()
 
 func _play_minigame() -> void:
 	active_game = games.rope
 	change_game()
-	print(23)
 
 
 func _finished_minigame():
