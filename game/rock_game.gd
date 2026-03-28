@@ -14,7 +14,19 @@ var mouse_rock_start_height: float
 var rock_recently_spawned: bool = true
 var spawn_rock_L: bool = false
 
+
+var active: bool = true
+
 @export var rock_distance: int = 500
+
+func disable():
+	$Rocks.hide()
+	active = false
+
+func enable():
+	$Rocks.show()
+	active = true
+
 
 func _ready() -> void:
 	for rock in rock_array:
@@ -24,21 +36,24 @@ func _ready() -> void:
 	_reposition_rock(400)
 	_reposition_rock(-100)
 
+
 func _process(_delta: float) -> void:
-	if rock_is_pressed:
-		height = clamp(get_local_mouse_position().y + mouse_rock_start_height,height,INF)
-	
-	if int(height) % rock_distance <= 100:
-		if not rock_recently_spawned:
-			_reposition_rock()
-			print(height)
+	if active:
+		if rock_is_pressed:
+			height = clamp(get_local_mouse_position().y + mouse_rock_start_height,height,INF)
 		
-			rock_recently_spawned = true
-	else:
-		rock_recently_spawned = false
-	
-	parallax_2d.scroll_offset.y = height
-	rocks.position.y = height
+		if int(height) % rock_distance <= 100:
+			if not rock_recently_spawned:
+				_reposition_rock()
+				
+				rock_recently_spawned = true
+		else:
+			rock_recently_spawned = false
+		
+		
+		parallax_2d.scroll_offset.y = height
+		rocks.position.y = height
+
 
 func _reposition_rock(height_override: float = 0):
 	var rock = rock_array.pop_front()
@@ -56,16 +71,24 @@ func _reposition_rock(height_override: float = 0):
 	rock.global_position.y = -100 + height_override
 	rock.reset_size()
 
+
 func _rock_mouse_entered():
 	mouse_on_rock = true
+
 
 func _rock_mouse_exited():
 	mouse_on_rock = false
 
+
 func _rock_input_event(__,event:InputEvent,___):
-	if event is InputEventMouseButton:
-		if event.is_pressed() and not event.is_echo():
-			rock_is_pressed = true
-			mouse_rock_start_height = height - event.position.y
-		elif event.is_released():
-			rock_is_pressed = false
+	if active:
+		if event is InputEventMouseButton:
+			if event.is_pressed() and not event.is_echo():
+				rock_is_pressed = true
+				mouse_rock_start_height = height - event.position.y
+			elif event.is_released():
+				rock_is_pressed = false
+
+
+func _on_main_hand_inactive() -> void:
+	rock_is_pressed = false

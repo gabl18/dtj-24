@@ -14,8 +14,11 @@ var mouse_hover_zoneR: bool
 
 var hand_is_active: bool
 var active_hand_is_L: bool
-
 var hand_is_closed: bool
+
+
+var active_minigame
+
 
 func _ready() -> void:
 	pass
@@ -63,7 +66,3 @@ func _physics_process(_delta: float) -> void:
 			
 			armR.z_index = 1
 			armL.z_index = 0
-			
-			
-	
-	
