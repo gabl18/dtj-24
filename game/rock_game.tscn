@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://crs1uruhct3yb"]
+
+[ext_resource type="Script" uid="uid://bmi5rphu0p5gp" path="res://main.gd" id="1_wkoij"]
+[ext_resource type="Texture2D" uid="uid://bbey0qqe0rsg4" path="res://assets/Background.png" id="2_n0x2a"]
+[ext_resource type="PackedScene" uid="uid://djat06qxuj40q" path="res://game/rock.tscn" id="3_4u710"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7mycd"]
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_272bh"]
+height = 20.0
+
+[node name="RockGame" type="Node2D"]
+script = ExtResource("1_wkoij")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 1600)
+
+[node name="TextureRect" type="TextureRect" parent="Parallax2D"]
+offset_left = -28.0
+offset_right = 212.0
+offset_bottom = 320.0
+scale = Vector2(5, 5)
+texture = ExtResource("2_n0x2a")
+stretch_mode = 4
+
+[node name="Rocks" type="Node2D" parent="."]
+
+[node name="Rock" parent="Rocks" instance=ExtResource("3_4u710")]
+
+[node name="CollisionShape2D" parent="Rocks/Rock" index="1"]
+shape = SubResource("CapsuleShape2D_7mycd")
+
+[node name="Rock2" parent="Rocks" instance=ExtResource("3_4u710")]
+
+[node name="CollisionShape2D" parent="Rocks/Rock2" index="1"]
+shape = SubResource("CapsuleShape2D_272bh")
+
+[editable path="Rocks/Rock"]
+[editable path="Rocks/Rock2"]
