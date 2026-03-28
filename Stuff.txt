@@ -1,0 +1,36 @@
+an easy game about climbing / the direction is up
+
+a few minigames that are very easy but focus on speed.
+
+pulling rope:
+	a rope that you have to "pull" down with you mouse
+
+navigation:
+	a little devise that you have to idk sync by like pushing a button turning a dial.
+	at the end it shows the direction -> up
+
+untangeling rope:
+
+setting an ancor:
+	you have to swing a hammer a few times and hit a nail or sth
+
+tying a knot:
+	you have to path with your mouse
+
+chalking up your hands:
+	you have to spam a chalk bag
+	or you have to shake it violently
+
+
+actual climbing: 
+	main game = between every minigame
+	your mouse is a hand (maybe rigged) and you have to click and pull stones and cliffs down, so you move up
+
+every minigame is mainly focused on speed, but maybe there is also accuracy score...
+
+perspective is POV.
+
+you can always see your hands and thats all you see. the background is always a rockface. the minigames is the left hand pulling something up
+ and the right hand follows the mouse and does the job. While climbing the hands switch, so you first control the left then the right and so on.
+
+the game is a random loop of those minigames for like 2 mins, or it is infinite as long as you are acurate enough or sth like that
