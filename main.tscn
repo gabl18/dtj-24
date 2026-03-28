@@ -1,0 +1,224 @@
+[gd_scene load_steps=12 format=3 uid="uid://05angmyaimsw"]
+
+[ext_resource type="Script" uid="uid://bmi5rphu0p5gp" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://ds470jvadcdq6" path="res://assets/TestBG.png" id="1_h2yge"]
+[ext_resource type="Texture2D" uid="uid://bx4qerugim2so" path="res://assets/Testhand.png" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://cgnyh3xcp7khs" path="res://game/arms.gd" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://djat06qxuj40q" path="res://game/rock.tscn" id="3_lquwl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7mycd"]
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_272bh"]
+height = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ig7tw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(96, 354.69788)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0xm2m"]
+load_path = "res://.godot/imported/Testhand.png-d57fcceed6aae4d7d75201b11eb954c0.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
+size = Vector2(96, 1174.6179)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_0xm2m")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(1200, 700)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+scale = Vector2(12, 7)
+texture = ExtResource("1_h2yge")
+centered = false
+
+[node name="Rocks" type="Node2D" parent="."]
+
+[node name="Rock" parent="Rocks" instance=ExtResource("3_lquwl")]
+
+[node name="CollisionShape2D" parent="Rocks/Rock" index="1"]
+shape = SubResource("CapsuleShape2D_7mycd")
+
+[node name="Rock2" parent="Rocks" instance=ExtResource("3_lquwl")]
+
+[node name="CollisionShape2D" parent="Rocks/Rock2" index="1"]
+shape = SubResource("CapsuleShape2D_272bh")
+
+[node name="ArmManager" type="Node2D" parent="."]
+script = ExtResource("3_1bvp3")
+
+[node name="ArmR" type="Node2D" parent="ArmManager"]
+position = Vector2(1228, -321)
+rotation = 1.0344157
+
+[node name="ArmTop" type="CharacterBody2D" parent="ArmManager/ArmR"]
+position = Vector2(137, 920)
+rotation = -0.091519035
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmManager/ArmR/ArmTop"]
+visible = false
+shape = SubResource("CircleShape2D_ig7tw")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="ArmManager/ArmR"]
+position = Vector2(137, 924)
+rotation = -0.091519035
+node_a = NodePath("../ArmTop")
+node_b = NodePath("../StaticBody2D2")
+
+[node name="StaticBody2D2" type="RigidBody2D" parent="ArmManager/ArmR"]
+position = Vector2(288, 776)
+rotation = -2.3577123
+collision_layer = 0
+collision_mask = 0
+mass = 0.001
+gravity_scale = 0.0
+
+[node name="Testhand" type="Sprite2D" parent="ArmManager/ArmR/StaticBody2D2"]
+position = Vector2(-9.356134, 14.333973)
+scale = Vector2(-8.586338, 16.881899)
+texture = ExtResource("1_ig7tw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmManager/ArmR/StaticBody2D2"]
+visible = false
+position = Vector2(-1.999939, 102.88367)
+rotation = 3.1415927
+scale = Vector2(0.9540654, -1.8716068)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="ArmManager/ArmR"]
+position = Vector2(574, 533)
+rotation = -0.091519035
+node_a = NodePath("../StaticBody2D2")
+node_b = NodePath("../StaticBody2D3")
+angular_limit_enabled = true
+angular_limit_lower = -0.09250245
+angular_limit_upper = 1.3718288
+
+[node name="StaticBody2D3" type="RigidBody2D" parent="ArmManager/ArmR"]
+position = Vector2(578, 570)
+rotation = -1.230106
+collision_layer = 0
+collision_mask = 0
+mass = 0.001
+gravity_scale = 0.0
+
+[node name="Testhand" type="Sprite2D" parent="ArmManager/ArmR/StaticBody2D3"]
+position = Vector2(23.503937, 518.86847)
+rotation = -3.1109025
+scale = Vector2(10.051661, 23.516819)
+texture = SubResource("CompressedTexture2D_0xm2m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmManager/ArmR/StaticBody2D3"]
+visible = false
+position = Vector2(61.852627, 494.57074)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="ArmManager/ArmR"]
+position = Vector2(1319, 933)
+rotation = -0.091519035
+scale = Vector2(0.69627106, 0.121705905)
+node_a = NodePath("../StaticBody2D3")
+node_b = NodePath("../StaticBody2D4")
+softness = 16.0
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="ArmManager/ArmR"]
+position = Vector2(1315, 927)
+rotation = -0.091519035
+scale = Vector2(0.69627106, 0.121705905)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmManager/ArmR/StaticBody2D4"]
+visible = false
+shape = SubResource("CircleShape2D_ig7tw")
+
+[node name="ArmL" type="Node2D" parent="ArmManager"]
+position = Vector2(524, -119)
+rotation = 1.4810551
+
+[node name="ArmTop" type="CharacterBody2D" parent="ArmManager/ArmL"]
+position = Vector2(151.49997, 135.1213)
+rotation = -0.091519035
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmManager/ArmL/ArmTop"]
+visible = false
+position = Vector2(4.737808, 1.8849335)
+shape = SubResource("CircleShape2D_ig7tw")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="ArmManager/ArmL"]
+position = Vector2(158.29257, 137.7406)
+rotation = -0.091519035
+node_a = NodePath("../ArmTop")
+node_b = NodePath("../StaticBody2D2")
+
+[node name="StaticBody2D2" type="RigidBody2D" parent="ArmManager/ArmL"]
+position = Vector2(298.27875, 255.76115)
+rotation = -0.8187058
+collision_layer = 0
+collision_mask = 0
+mass = 0.001
+gravity_scale = 0.0
+
+[node name="Testhand" type="Sprite2D" parent="ArmManager/ArmL/StaticBody2D2"]
+position = Vector2(-9.356134, 14.333973)
+scale = Vector2(-8.586338, 16.881899)
+texture = ExtResource("1_ig7tw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmManager/ArmL/StaticBody2D2"]
+visible = false
+position = Vector2(-1.999939, 102.88367)
+rotation = 3.1415927
+scale = Vector2(0.9540654, -1.8716068)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="ArmManager/ArmL"]
+position = Vector2(574, 533)
+rotation = -0.091519035
+node_a = NodePath("../StaticBody2D2")
+node_b = NodePath("../StaticBody2D3")
+angular_limit_enabled = true
+angular_limit_lower = -1.9512781
+angular_limit_upper = -0.28274333
+
+[node name="StaticBody2D3" type="RigidBody2D" parent="ArmManager/ArmL"]
+position = Vector2(578, 570)
+rotation = -1.230106
+collision_layer = 0
+collision_mask = 0
+mass = 0.001
+gravity_scale = 0.0
+
+[node name="Testhand" type="Sprite2D" parent="ArmManager/ArmL/StaticBody2D3"]
+position = Vector2(23.503937, 518.86847)
+rotation = -3.1109025
+scale = Vector2(10.051661, 23.516819)
+texture = SubResource("CompressedTexture2D_0xm2m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmManager/ArmL/StaticBody2D3"]
+visible = false
+position = Vector2(61.852627, 494.57074)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="ArmManager/ArmL"]
+position = Vector2(1319, 933)
+rotation = -0.091519035
+scale = Vector2(0.69627106, 0.121705905)
+node_a = NodePath("../StaticBody2D3")
+node_b = NodePath("../StaticBody2D4")
+softness = 16.0
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="ArmManager/ArmL"]
+position = Vector2(1315, 927)
+rotation = -0.091519035
+scale = Vector2(0.69627106, 0.121705905)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmManager/ArmL/StaticBody2D4"]
+visible = false
+shape = SubResource("CircleShape2D_ig7tw")
+
+[editable path="Rocks/Rock"]
+[editable path="Rocks/Rock2"]
