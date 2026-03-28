@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://05angmyaimsw"]
+[gd_scene load_steps=13 format=3 uid="uid://05angmyaimsw"]
 
+[ext_resource type="Script" uid="uid://8ai3q68a6u10" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="Texture2D" uid="uid://bxhhq7bkcyqo8" path="res://assets/Hands_Spritesheet.png" id="2_1bvp3"]
 [ext_resource type="Script" uid="uid://cgnyh3xcp7khs" path="res://game/arms.gd" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://cixflqrdqeunf" path="res://assets/Arm.png" id="3_lquwl"]
@@ -41,7 +42,8 @@ size = Vector2(96, 169.91351)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8morq"]
 size = Vector2(92.27301, 464.49713)
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Node2D"]
+script = ExtResource("1_7mycd")
 
 [node name="RockGame" parent="." instance=ExtResource("5_lquwl")]
 

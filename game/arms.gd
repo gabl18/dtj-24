@@ -15,6 +15,8 @@ var mouse_hover_zoneR: bool
 var hand_is_active: bool
 var active_hand_is_L: bool
 
+var hand_is_closed: bool
+
 func _ready() -> void:
 	pass
 
@@ -22,11 +24,13 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
+			hand_is_closed = true
 			if not active_hand_is_L:
 				armR_animated_sprite_2d.animation = "close"
 			else:
 				armL_animated_sprite_2d.animation = "close"
 		else:
+			hand_is_closed = false
 			armR_animated_sprite_2d.animation = "open"
 			armL_animated_sprite_2d.animation = "open"
 
@@ -44,13 +48,17 @@ func _physics_process(_delta: float) -> void:
 				
 	if hand_is_active:
 		if active_hand_is_L:
-			armL_palm.global_position = (mouse_pos - armL_palm.global_position) * 0.4 + armL_palm.global_position
+			if not hand_is_closed:
+				armL_palm.global_position.x = (mouse_pos.x - armL_palm.global_position.x) * 0.4 + armL_palm.global_position.x
+			armL_palm.global_position.y = (mouse_pos.y - armL_palm.global_position.y) * 0.4 + armL_palm.global_position.y
 			armL_palm.move_and_slide()
 			armL.z_index = 1
 			armR.z_index = 0
 
 		else:
-			armR_palm.global_position = (mouse_pos - armR_palm.global_position) * 0.4 + armR_palm.global_position
+			if not hand_is_closed:
+				armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x
+			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
 			armR_palm.move_and_slide()
 			
 			armR.z_index = 1

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv8jqlwm5brwi"]
+
+[ext_resource type="Script" uid="uid://dahninqnlmb77" path="res://rope_game.gd" id="1_ifrgl"]
+[ext_resource type="Texture2D" uid="uid://bquir1p7cov2l" path="res://assets/TestRope.png" id="2_a1sjo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lyb0g"]
+size = Vector2(65, 821)
+
+[node name="RopeGame" type="Node2D"]
+script = ExtResource("1_ifrgl")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 236)
+repeat_times = 7
+
+[node name="TextureRect" type="TextureRect" parent="Parallax2D"]
+offset_left = 533.0
+offset_top = -7.0
+offset_right = 584.0
+offset_bottom = 229.0
+texture = ExtResource("2_a1sjo")
+stretch_mode = 4
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(533, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(22.5, 400.5)
+shape = SubResource("RectangleShape2D_lyb0g")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

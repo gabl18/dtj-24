@@ -1,71 +1,8 @@
 extends Node2D
-@onready var rock_1: StaticBody2D = $Rocks/Rock
-@onready var rock_2: StaticBody2D = $Rocks/Rock2
-@onready var rock_array: Array = [rock_2,rock_1]
 
-@onready var parallax_2d: Parallax2D = $Parallax2D
-@onready var rocks: Node2D = $Rocks
+enum games {
+	rockgame,
+	rope
+}
 
-var height: float = 0
-var mouse_on_rock: bool
-var rock_is_pressed: bool
-var mouse_rock_start_height: float
-
-var rock_recently_spawned: bool = true
-var spawn_rock_L: bool = false
-
-@export var rock_distance: int = 500
-
-func _ready() -> void:
-	for rock in rock_array:
-		rock.connect("mouse_entered",_rock_mouse_entered)
-		rock.connect("mouse_exited",_rock_mouse_exited)
-		rock.connect("input_event",_rock_input_event)
-	_reposition_rock(400)
-	_reposition_rock(-100)
-
-func _process(_delta: float) -> void:
-	if rock_is_pressed:
-		height = clamp(get_local_mouse_position().y + mouse_rock_start_height,height,INF)
-	
-	if int(height) % rock_distance <= 100:
-		if not rock_recently_spawned:
-			_reposition_rock()
-			print(height)
-		
-			rock_recently_spawned = true
-	else:
-		rock_recently_spawned = false
-	
-	parallax_2d.scroll_offset.y = height
-	rocks.position.y = height
-
-func _reposition_rock(height_override: float = 0):
-	var rock = rock_array.pop_front()
-	rock_array.append(rock)
-
-	if spawn_rock_L:
-		spawn_rock_L = false
-		@warning_ignore("narrowing_conversion")
-		rock.position.x = randi_range(get_viewport_rect().size.x * 0.1, get_viewport_rect().size.x * 0.45)
-	else:
-		spawn_rock_L = true
-		@warning_ignore("narrowing_conversion")
-		rock.position.x = randi_range(get_viewport_rect().size.x * 0.55, get_viewport_rect().size.x * 0.9)
-
-	rock.global_position.y = -100 + height_override
-	rock.reset_size()
-
-func _rock_mouse_entered():
-	mouse_on_rock = true
-
-func _rock_mouse_exited():
-	mouse_on_rock = false
-
-func _rock_input_event(__,event:InputEvent,___):
-	if event is InputEventMouseButton:
-		if event.is_pressed() and not event.is_echo():
-			rock_is_pressed = true
-			mouse_rock_start_height = height - event.position.y
-		elif event.is_released():
-			rock_is_pressed = false
+var active_game := games.rockgame

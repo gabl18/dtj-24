@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://crs1uruhct3yb"]
 
-[ext_resource type="Script" uid="uid://bmi5rphu0p5gp" path="res://main.gd" id="1_wkoij"]
+[ext_resource type="Script" uid="uid://bmi5rphu0p5gp" path="res://game/rock_game.gd" id="1_wkoij"]
 [ext_resource type="Texture2D" uid="uid://bbey0qqe0rsg4" path="res://assets/Background.png" id="2_n0x2a"]
 [ext_resource type="PackedScene" uid="uid://tp6dqhxpkmxg" path="res://game/rock.tscn" id="3_4u710"]
 
