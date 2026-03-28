@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://chf1i5e5wab8m"]
+[gd_scene load_steps=11 format=3 uid="uid://chf1i5e5wab8m"]
 
 [ext_resource type="Script" uid="uid://cgnyh3xcp7khs" path="res://game/arms.gd" id="1_gje4k"]
 [ext_resource type="Texture2D" uid="uid://bxhhq7bkcyqo8" path="res://assets/Hands_Spritesheet.png" id="2_gje4k"]
@@ -9,6 +9,10 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_04h5h"]
 atlas = ExtResource("2_gje4k")
+region = Rect2(73, 0, 73, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0ejh"]
+atlas = ExtResource("2_gje4k")
 region = Rect2(0, 0, 73, 92)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8morq"]
@@ -16,6 +20,14 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_04h5h")
+}],
+"loop": true,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0ejh")
 }],
 "loop": true,
 "name": &"open",

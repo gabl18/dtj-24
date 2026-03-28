@@ -1,13 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://djat06qxuj40q"]
+[gd_scene load_steps=4 format=3 uid="uid://tp6dqhxpkmxg"]
 
 [ext_resource type="Script" uid="uid://cyrv8unnqqy0k" path="res://game/rock.gd" id="1_7didp"]
-[ext_resource type="Texture2D" uid="uid://ch48dhmvyygek" path="res://assets/TestRock.png" id="1_ne4s4"]
+[ext_resource type="Texture2D" uid="uid://dggrhigeictu3" path="res://assets/Rocks.png" id="2_7didp"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7didp"]
-height = 20.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_exgsa"]
+radius = 25.0
 
 [node name="Rock" type="StaticBody2D"]
-scale = Vector2(5, 5)
+scale = Vector2(3, 3)
 collision_layer = 256
 collision_mask = 256
 input_pickable = true
@@ -16,8 +16,9 @@ script = ExtResource("1_7didp")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.2, 0)
 scale = Vector2(0.9999998, 0.9999998)
-texture = ExtResource("1_ne4s4")
+texture = ExtResource("2_7didp")
+hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("CapsuleShape2D_7didp")
+shape = SubResource("CircleShape2D_exgsa")
