@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://cy8dbpby5bjm6"]
+[gd_scene load_steps=58 format=3 uid="uid://cy8dbpby5bjm6"]
 
 [ext_resource type="Script" uid="uid://5bi2bds72guf" path="res://ui.gd" id="1_iejap"]
 [ext_resource type="Texture2D" uid="uid://ds470jvadcdq6" path="res://assets/TestBG.png" id="1_r2x2w"]
@@ -6,6 +6,8 @@
 [ext_resource type="Shader" uid="uid://m7y48aru6ed8" path="res://flag.gdshader" id="3_cfuqe"]
 [ext_resource type="Texture2D" uid="uid://cmuahtikmp7st" path="res://assets/title.png" id="4_rhufb"]
 [ext_resource type="FontFile" uid="uid://b5xh7gnpj25os" path="res://assets/SharpMess.ttf" id="5_fqnwy"]
+[ext_resource type="Texture2D" uid="uid://bs0qs5xhiljju" path="res://assets/Buttons.png" id="7_cfuqe"]
+[ext_resource type="Texture2D" uid="uid://npgte3dcsmeb" path="res://assets/Knob.png" id="7_rhufb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cpurt"]
 
@@ -305,6 +307,38 @@ font_size = 56
 outline_size = 14
 outline_color = Color(0.25565878, 0.25565878, 0.25565878, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqnwy"]
+content_margin_top = 10.0
+bg_color = Color(0.12392493, 0.41099697, 0.5334763, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.14717612, 0.14717613, 0.1471761, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+anti_aliasing = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhufb"]
+atlas = ExtResource("7_cfuqe")
+region = Rect2(0, 0, 90, 46)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fqnwy"]
+load_path = "res://.godot/imported/Buttons.png-40dee453e7513d3ffc4efc07f24c81be.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpurt"]
+atlas = SubResource("CompressedTexture2D_fqnwy")
+region = Rect2(90, 0, 90, 46)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ivbii"]
+load_path = "res://.godot/imported/Buttons.png-40dee453e7513d3ffc4efc07f24c81be.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rex52"]
+atlas = SubResource("CompressedTexture2D_ivbii")
+region = Rect2(180, 0, 90, 46)
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -315,6 +349,7 @@ grow_vertical = 2
 script = ExtResource("1_iejap")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 modulate = Color(0.08627451, 0.78431374, 1, 1)
 material = SubResource("ShaderMaterial_cpurt")
 layout_mode = 1
@@ -360,7 +395,7 @@ grow_vertical = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 80
+theme_override_constants/margin_bottom = 60
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -380,12 +415,26 @@ theme_override_constants/separation = 10
 
 [node name="Volume" type="HSlider" parent="MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("7_rhufb")
+theme_override_icons/grabber_highlight = ExtResource("7_rhufb")
+theme_override_styles/slider = SubResource("StyleBoxFlat_fqnwy")
+value = 50.0
 
 [node name="SFX" type="HSlider" parent="MarginContainer/VBoxContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("7_rhufb")
+theme_override_icons/grabber_highlight = ExtResource("7_rhufb")
+theme_override_styles/slider = SubResource("StyleBoxFlat_fqnwy")
+value = 50.0
 
 [node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(200, 100)
+custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+texture_normal = SubResource("AtlasTexture_rhufb")
+texture_pressed = SubResource("AtlasTexture_cpurt")
+texture_hover = SubResource("AtlasTexture_rex52")
+stretch_mode = 5
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer2/TextureButton" to="." method="_on_texture_button_pressed"]
