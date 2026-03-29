@@ -13,6 +13,9 @@ config_version=5
 config/name="36-Hour-Jam"
 run/main_scene="uid://851x3tp7w3wx"
 config/features=PackedStringArray("4.5", "GL Compatibility")
+boot_splash/bg_color=Color(0.33660772, 0.3366076, 0.33660755, 1)
+boot_splash/use_filter=false
+boot_splash/image="uid://cc24hf7x1jfe0"
 
 [autoload]
 

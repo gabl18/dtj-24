@@ -6,6 +6,8 @@
 [sub_resource type="LabelSettings" id="LabelSettings_ryc0q"]
 font = ExtResource("2_mjpmy")
 font_size = 44
+outline_size = 9
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Stopwatch" type="Control"]
 layout_mode = 3
@@ -23,4 +25,3 @@ offset_right = 67.0
 offset_bottom = 35.0
 text = "12121212"
 label_settings = SubResource("LabelSettings_ryc0q")
-horizontal_alignment = 2

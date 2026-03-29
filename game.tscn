@@ -462,7 +462,6 @@ _data = {
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_rvswv")
-goal_height = 5
 
 [node name="RockGame" type="Node2D" parent="."]
 script = ExtResource("2_boyg6")
@@ -659,10 +658,10 @@ speed_scale = 1.5
 [node name="Stopwatch" parent="." instance=ExtResource("23_qhcbd")]
 unique_name_in_owner = true
 z_index = 24
-offset_left = 948.0
-offset_top = -7.0
-offset_right = 948.0
-offset_bottom = -7.0
+offset_left = 944.0
+offset_top = 14.0
+offset_right = 944.0
+offset_bottom = 14.0
 
 [connection signal="hand_inactive" from="." to="RockGame" method="_on_main_hand_inactive"]
 [connection signal="hand_inactive" from="." to="RopeGame" method="_on_main_hand_inactive"]

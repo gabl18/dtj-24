@@ -20,5 +20,15 @@ const STONE_4 = preload("uid://bisux643qgly5")
 const STONE_5 = preload("uid://b4nm4gvgcpu2y")
 const STONE = preload("uid://by1xy4qg1o1sm")
 
+const CHALK_2 = preload("uid://bfiip77tb634g")
+const CHALK_3 = preload("uid://rx8swdslgi6h")
+const CHALK_4 = preload("uid://dqjjihg3h1lsp")
+const HAMMER = preload("uid://dx00gtvk1g5fa")
+const ROPE = preload("uid://x1axlxqa61e2")
+
+
 func get_random_stone_noise():
 	return [STONE,STONE_2,STONE_3,STONE_4,STONE_5].pick_random()
+	
+func get_random_chalk_noise():
+	return [CHALK_2,CHALK_3,CHALK_4].pick_random()
