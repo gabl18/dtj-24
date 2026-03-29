@@ -11,7 +11,8 @@ enum games {
 	rope,
 	untangle,
 	chalk,
-	piton
+	piton,
+	compass,
 }
 
 @onready var climb_timer: Timer = $ClimbTimer
@@ -21,6 +22,9 @@ enum games {
 @onready var untangle_game: Node2D = $UntangleGame
 @onready var chalk_game: Node2D = $ChalkGame
 @onready var piton_game: Node2D = $PitonGame
+@onready var compass_game: Node2D = $CompassGame
+
+@export var goal_height = 100
 
 var active_game := games.rockgame
 
@@ -65,6 +69,9 @@ func _disable_game():
 	if active_game != games.piton:
 		piton_game.disable()
 		piton_place = false
+	
+	if active_game != games.compass:
+		compass_game.disable()
 
 
 func _enable_game():
@@ -75,30 +82,35 @@ func _enable_game():
 
 	if active_game == games.rope:
 		rope_game.enable()
+		_show_shoutout(5)
 
 	if active_game == games.untangle:
 		untangle_game.enable()
+		_show_shoutout(7)
 	
 	if active_game == games.chalk:
 		chalk_game.enable()
-		
+		_show_shoutout(3)
 	
 	if active_game == games.piton:
 		piton_game.enable()
-		
-		
+		_show_shoutout(3)
+	
+	if active_game == games.compass:
+		compass_game.enable()
+		_show_shoutout(6)
 
 func _play_game_trans_in():
 	if active_game == games.rope:
 		rope_game.play_trans_in_anim()
 		climb_rope = true
-		_show_shoutout(5)
+		
 		
 	if active_game == games.untangle:
 		untangle_game.play_trans_in_anim()
 		rope_untangle = true
 		armR_animated_sprite_2d.animation = "open"
-		_show_shoutout(7)
+		
 		
 		var tween = get_tree().create_tween()
 		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
@@ -114,7 +126,7 @@ func _play_game_trans_in():
 		chalk_bag = true
 		chalk_game.play_trans_in_anim()
 		armR_animated_sprite_2d.animation = "open"
-		_show_shoutout(3)
+		
 		
 		var tween = get_tree().create_tween()
 		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
@@ -127,7 +139,7 @@ func _play_game_trans_in():
 		tween.kill()
 	
 	if active_game == games.piton:
-		_show_shoutout(3)
+		
 		piton_place = true
 		armR_animated_sprite_2d.animation = "point"
 		var tween = get_tree().create_tween()
@@ -135,9 +147,25 @@ func _play_game_trans_in():
 		await tween.finished
 		tween.kill()
 
+	if active_game == games.compass:
+		
+		piton_place = true
+		
+		armR_animated_sprite_2d.animation = "point"
+		var tween = get_tree().create_tween()
+		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
+		await tween.finished
+		tween.kill()
+		armL_animated_sprite_2d.animation = "compass"
+		tween = get_tree().create_tween()
+		tween.tween_property(armL_palm,"global_position",Vector2(550,350),0.5)
+		await tween.finished
+		tween.kill()
+
 
 func _play_minigame() -> void:
-	active_game = randi_range(1,4) as games
+	#active_game = randi_range(1,5) as games
+	active_game = games.compass
 	change_game()
 
 
@@ -343,3 +371,21 @@ func _on_piton_game_point_down() -> void:
 	await get_tree().create_timer(0.3).timeout
 	if piton_place:
 		armR_animated_sprite_2d.animation = "point"
+
+
+func _on_rock_game_height_updated(h: float) -> void:
+	height = h / 300
+	$ProgressBar.value = height/goal_height
+	if height >= goal_height:
+		_final_minigame()
+
+func _final_minigame():
+	pass
+
+
+func _on_compass_game_minigame_finished() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
+	await tween.finished
+	tween.kill()
+	armL_animated_sprite_2d.animation = "open"

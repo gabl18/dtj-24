@@ -6,6 +6,8 @@ extends Node2D
 @onready var parallax_2d: Parallax2D = $Parallax2D
 @onready var rocks: Node2D = $Rocks
 
+signal height_updated(height:float)
+
 var height: float = 0
 var mouse_on_rock: bool
 var rock_is_pressed: bool
@@ -43,7 +45,7 @@ func _process(_delta: float) -> void:
 	if active:
 		if rock_is_pressed:
 			height = clamp(get_local_mouse_position().y + mouse_rock_start_height,height,INF)
-		
+			height_updated.emit(height)
 		if int(height) > last_rock_distance + rock_distance:
 			_reposition_rock()
 			last_rock_distance = last_rock_distance + rock_distance
