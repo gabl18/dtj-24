@@ -41,7 +41,7 @@ func _process(_delta: float) -> void:
 		if rock_is_pressed:
 			height = clamp(get_local_mouse_position().y + mouse_rock_start_height,height,INF)
 		
-		if int(height) % rock_distance <= 200:
+		if int(height) % rock_distance <= 250:
 			if not rock_recently_spawned:
 				_reposition_rock()
 				

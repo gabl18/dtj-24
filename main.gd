@@ -77,11 +77,11 @@ func _enable_game():
 	
 	if active_game == games.chalk:
 		chalk_game.enable()
-		chalk_bag = true
+		
 	
 	if active_game == games.piton:
 		piton_game.enable()
-		piton_place = true
+		
 		
 
 func _play_game_trans_in():
@@ -102,13 +102,13 @@ func _play_game_trans_in():
 		tween.kill()
 		armL_animated_sprite_2d.animation = "rope"
 		tween = get_tree().create_tween()
-		tween.tween_property(armL_palm,"global_position",Vector2(700,160),0.6)
+		tween.tween_property(armL_palm,"global_position",Vector2(400,160),0.6)
 		await tween.finished
 		tween.kill()
 		
 	if active_game == games.chalk:
-		chalk_game.play_trans_in_anim()
 		chalk_bag = true
+		chalk_game.play_trans_in_anim()
 		armR_animated_sprite_2d.animation = "open"
 		_show_shoutout(3)
 		
@@ -123,6 +123,8 @@ func _play_game_trans_in():
 		tween.kill()
 	
 	if active_game == games.piton:
+		piton_place = true
+		armR_animated_sprite_2d.animation = "point"
 		var tween = get_tree().create_tween()
 		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
 		await tween.finished
@@ -130,7 +132,7 @@ func _play_game_trans_in():
 
 
 func _play_minigame() -> void:
-	active_game = games.piton
+	active_game = randi_range(1,4) as games
 	change_game()
 
 
@@ -248,7 +250,7 @@ func _physics_process(_delta: float) -> void:
 	
 	elif rope_untangle:
 		if hand_is_active:
-			armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
+			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x
 			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
 			armR_palm.move_and_slide()
 			armR.z_index = 1
@@ -256,7 +258,7 @@ func _physics_process(_delta: float) -> void:
 			
 	elif chalk_bag:
 		if hand_is_active:
-			armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
+			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x
 			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
 			armR_palm.move_and_slide()
 			armR.z_index = 1
@@ -264,7 +266,7 @@ func _physics_process(_delta: float) -> void:
 	
 	elif piton_place:
 		if hand_is_active:
-			armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
+			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x
 			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
 			armR_palm.move_and_slide()
 			armR.z_index = 1
@@ -286,7 +288,7 @@ func _on_untangle_game_rope_hold_change(held: bool) -> void:
 
 func _on_untangle_disable():
 	var tween = get_tree().create_tween()
-	tween.tween_property(armL_palm,"global_position",Vector2(700,160),0.2)
+	tween.tween_property(armL_palm,"global_position",Vector2(400,160),0.2)
 	await tween.finished
 	tween.kill()
 	tween = get_tree().create_tween()
@@ -332,3 +334,10 @@ func _on_piton_game_minigame_finished() -> void:
 	sprite.global_position = pos
 	await get_tree().create_timer(10).timeout
 	sprite.queue_free()
+
+
+func _on_piton_game_point_down() -> void:
+	armR_animated_sprite_2d.animation = "point_down"
+	await get_tree().create_timer(0.3).timeout
+	if piton_place:
+		armR_animated_sprite_2d.animation = "point"

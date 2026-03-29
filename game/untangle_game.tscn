@@ -10,8 +10,7 @@ radius = 163.54
 script = ExtResource("1_8kvvw")
 
 [node name="Line2D" type="Line2D" parent="."]
-position = Vector2(-7, 48.000004)
-points = PackedVector2Array(797, 141, 855, 160)
+points = PackedVector2Array(450, 180, 504, 199)
 width = 50.0
 texture = ExtResource("1_u07wu")
 texture_mode = 1
@@ -19,7 +18,7 @@ texture_mode = 1
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(816, 203)
+position = Vector2(459, 191)
 shape = SubResource("CircleShape2D_n3qgl")
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

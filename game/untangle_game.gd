@@ -16,7 +16,7 @@ signal finish_minigame
 func disable():
 	hide()
 	active = false
-	$Line2D.points[-1] = Vector2(855.0,160.0)
+	$Line2D.points[-1] = Vector2(427.0,197.0)
 	rope_is_pressed = false
 
 
@@ -53,14 +53,9 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	if active:
 		if rope_is_pressed:
-			if get_global_mouse_position().x < get_viewport_rect().size.x/2:
-				rope_is_pressed = false
-				rope_hold_change.emit(false)
-			else:
-			
-				$Line2D.points[-1] = get_global_mouse_position() - $Line2D.global_position
+			$Line2D.points[-1] = get_global_mouse_position() - $Line2D.global_position
 		else:
-			$Line2D.points[-1] = Vector2(855.0,160.0) - $Line2D.global_position
+			$Line2D.points[-1] = Vector2(427.0,197.0) - $Line2D.global_position
 		#if int(rope_height) > rope_max_height:
 			#active = false
 			#await play_trans_out_anim()

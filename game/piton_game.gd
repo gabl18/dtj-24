@@ -1,6 +1,7 @@
 extends Node2D
 
 signal minigame_finished
+signal point_down
 
 var loop_acuracy: float = 0
 var block := false
@@ -18,6 +19,7 @@ func disable():
 
 func _loop_stop():
 	if not block:
+		point_down.emit()
 		loop_acuracy = wrapf($label/AnimationPlayer.current_animation_position,0,0.5)
 		$label/AnimationPlayer.pause()
 

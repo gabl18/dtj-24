@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://05angmyaimsw"]
+[gd_scene load_steps=29 format=3 uid="uid://05angmyaimsw"]
 
 [ext_resource type="Script" uid="uid://8ai3q68a6u10" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="Texture2D" uid="uid://bxhhq7bkcyqo8" path="res://assets/Hands_Spritesheet.png" id="2_1bvp3"]
@@ -29,6 +29,14 @@ region = Rect2(73, 0, 73, 92)
 atlas = ExtResource("2_1bvp3")
 region = Rect2(0, 0, 73, 92)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_w48qg"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(584, 0, 73, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vivmo"]
+atlas = ExtResource("2_1bvp3")
+region = Rect2(511, 0, 73, 92)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_kek77"]
 atlas = ExtResource("2_1bvp3")
 region = Rect2(292, 0, 73, 92)
@@ -57,6 +65,22 @@ animations = [{
 }],
 "loop": true,
 "name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w48qg")
+}],
+"loop": true,
+"name": &"point",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vivmo")
+}],
+"loop": true,
+"name": &"point_down",
 "speed": 5.0
 }, {
 "frames": [{
@@ -228,7 +252,7 @@ shape = SubResource("CircleShape2D_g6gsk")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ArmR/Palm"]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_8morq")
-animation = &"chalk"
+animation = &"point"
 autoplay = "open"
 
 [node name="PinJoint2D" type="PinJoint2D" parent="ArmR"]
@@ -438,6 +462,7 @@ speed_scale = 5.0
 [connection signal="tap" from="ChalkGame" to="." method="_on_chalk_game_tap"]
 [connection signal="minigame_finished" from="PitonGame" to="." method="_finished_minigame"]
 [connection signal="minigame_finished" from="PitonGame" to="." method="_on_piton_game_minigame_finished"]
+[connection signal="point_down" from="PitonGame" to="." method="_on_piton_game_point_down"]
 [connection signal="timeout" from="ClimbTimer" to="." method="_on_climb_timer_timeout"]
 
 [editable path="RockGame/Rocks/Rock"]
