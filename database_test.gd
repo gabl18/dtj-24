@@ -14,12 +14,12 @@ func _ready():
 	
 	# Example: Save the string "Hello Godot" to the key "player_name"
 	
-	await save_highscore("Michi",10)
-	await save_highscore("Gabl",10)
-	await save_highscore("Michi",10)
-	await save_highscore("Julia",10)
-	
-	print(await get_all_highscores())
+	#await save_highscore("Michi",10)
+	#await save_highscore("Gabl",10)
+	#await save_highscore("Michi",10)
+	#await save_highscore("Julia",10)
+	#
+	#print(await get_all_highscores())
 
 
 func save_highscore(player_name:String, score:float):
@@ -53,11 +53,12 @@ func get_all_highscores():
 	
 	var request_string = await request_answer
 	var output = {}
-	var switch := false
-	for i in range(request_string.size()-1):
-		switch = not switch
-		if switch:
-			output.set(request_string[i],request_string[i+1])
+	if request_string is Array:
+		var switch := false
+		for i in range(request_string.size()-1):
+			switch = not switch
+			if switch:
+				output.set(request_string[i],float(request_string[i+1]))
 	
 	return output
 	

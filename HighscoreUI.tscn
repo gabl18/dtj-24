@@ -1,15 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://u2fh21jyomaj"]
+[gd_scene load_steps=8 format=3 uid="uid://u2fh21jyomaj"]
 
 [ext_resource type="Script" uid="uid://bdf2nijw5kntp" path="res://highscore_ui.gd" id="1_bqx3u"]
 [ext_resource type="Texture2D" uid="uid://ds470jvadcdq6" path="res://assets/TestBG.png" id="2_hvgb7"]
+[ext_resource type="FontFile" uid="uid://by63f0ffiad0q" path="res://assets/Font/BubblyMess.otf" id="3_cxnco"]
 [ext_resource type="PackedScene" uid="uid://2v5rxfm8iy7q" path="res://database_test.tscn" id="3_td5uq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cpurt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_td5uq"]
+font = ExtResource("3_cxnco")
 font_size = 50
 
 [sub_resource type="LabelSettings" id="LabelSettings_cxnco"]
+font = ExtResource("3_cxnco")
 font_size = 40
 
 [node name="HighscoreUI" type="Control"]
@@ -38,7 +41,7 @@ offset_left = 239.0
 offset_top = 74.0
 offset_right = 886.0
 offset_bottom = 143.0
-text = "Wanna save you Score?"
+text = "Wanna save your Score?"
 label_settings = SubResource("LabelSettings_td5uq")
 
 [node name="Label2" type="Label" parent="."]

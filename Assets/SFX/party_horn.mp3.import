@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://7b41saad6868"
-path="res://.godot/imported/party_horn.mp3-41fabe3f496093a01cc252fdc2dafda5.mp3str"
+path="res://.godot/imported/party_horn.mp3-ef557ab0aee7635f7f51b8c9fd0aa088.mp3str"
 
 [deps]
 
-source_file="res://Assets/SFX/party_horn.mp3"
-dest_files=["res://.godot/imported/party_horn.mp3-41fabe3f496093a01cc252fdc2dafda5.mp3str"]
+source_file="res://assets/SFX/party_horn.mp3"
+dest_files=["res://.godot/imported/party_horn.mp3-ef557ab0aee7635f7f51b8c9fd0aa088.mp3str"]
 
 [params]
 

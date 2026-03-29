@@ -4,6 +4,7 @@ extends Control
 var all_highscores: Dictionary
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	all_highscores = await database.get_all_highscores()
 
 
