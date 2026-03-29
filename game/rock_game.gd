@@ -17,6 +17,7 @@ var spawn_rock_L: bool = false
 
 
 var active: bool = true
+var won: bool = false
 
 @export var rock_distance: int = 500
 var last_rock_distance: int = 0
@@ -43,12 +44,13 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if active:
-		if rock_is_pressed:
-			height = clamp(get_local_mouse_position().y + mouse_rock_start_height,height,INF)
-			height_updated.emit(height)
-		if int(height) > last_rock_distance + rock_distance:
-			_reposition_rock()
-			last_rock_distance = last_rock_distance + rock_distance
+		if not won:
+			if rock_is_pressed:
+				height = clamp(get_local_mouse_position().y + mouse_rock_start_height,height,INF)
+				height_updated.emit(height)
+			if int(height) > last_rock_distance + rock_distance:
+				_reposition_rock()
+				last_rock_distance = last_rock_distance + rock_distance
 		
 		
 		parallax_2d.scroll_offset.y = height
@@ -83,13 +85,14 @@ func _rock_mouse_exited():
 
 func _rock_input_event(__,event:InputEvent,___):
 	if active:
-		if event is InputEventMouseButton:
-			if event.is_pressed() and not event.is_echo():
-				rock_is_pressed = true
-				
-				mouse_rock_start_height = height - event.position.y
-			elif event.is_released():
-				rock_is_pressed = false
+		if not won:
+			if event is InputEventMouseButton:
+				if event.is_pressed() and not event.is_echo():
+					rock_is_pressed = true
+					
+					mouse_rock_start_height = height - event.position.y
+				elif event.is_released():
+					rock_is_pressed = false
 
 
 func _on_main_hand_inactive() -> void:

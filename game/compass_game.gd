@@ -11,7 +11,7 @@ func enable():
 	show()
 	active = true
 	offset_rotation = randf_range(PI * 2/3, PI*4/3)
-	$Sprite2D.rotation = offset_rotation + deg_to_rad(22.5)
+	$Sprite2D.rotation = offset_rotation + deg_to_rad(22)
 	
 func disable():
 	hide()
@@ -30,7 +30,7 @@ func _input(event: InputEvent) -> void:
 			
 			last_mouse_angle = current_mouse_angle
 			
-			$Sprite2D.rotation = offset_rotation + deg_to_rad(22.5)
+			$Sprite2D.rotation = offset_rotation + deg_to_rad(22)
 
 
 func _process(_delta: float) -> void:
