@@ -2,16 +2,22 @@ extends Node2D
 
 @onready var border_anim_player: AnimationPlayer = $Border/AnimationPlayer
 
+
+@onready var shoutouts: Sprite2D = $Shoutouts
+
 enum games {
 	rockgame,
 	rope,
-	untangle
+	untangle,
+	chalk
 }
+
 @onready var climb_timer: Timer = $ClimbTimer
 
 @onready var rock_game: Node2D = $RockGame
 @onready var rope_game: Node2D = $RopeGame
 @onready var untangle_game: Node2D = $UntangleGame
+@onready var chalk_game: Node2D = $ChalkGame
 
 var active_game := games.rockgame
 
@@ -31,6 +37,7 @@ func change_game():
 		await get_tree().create_timer(1).timeout
 	_enable_game()
 
+
 func _disable_game():
 	if active_game != games.rockgame:
 		rock_game.disable()
@@ -44,17 +51,10 @@ func _disable_game():
 	if active_game != games.untangle:
 		untangle_game.disable()
 		rope_untangle = false
-		
-		
-		var tween = get_tree().create_tween()
-		tween.tween_property(armL_palm,"global_position",Vector2(700,160),0.6)
-		await tween.finished
-		tween.kill()
-		armL_animated_sprite_2d.animation = "open"
-		tween = get_tree().create_tween()
-		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
-		await tween.finished
-		tween.kill()
+	
+	if active_game != games.chalk:
+		chalk_game.disable()
+		chalk_bag = false
 
 
 func _enable_game():
@@ -62,23 +62,29 @@ func _enable_game():
 		rock_game.enable()
 		rock_game.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		climb_both_hands = true
-	
+
 	if active_game == games.rope:
 		rope_game.enable()
 
 	if active_game == games.untangle:
 		untangle_game.enable()
-		
+	
+	if active_game == games.chalk:
+		chalk_game.enable()
+		chalk_bag = true
+
 
 func _play_game_trans_in():
 	if active_game == games.rope:
 		rope_game.play_trans_in_anim()
 		climb_rope = true
+		_show_shoutout(5)
 		
 	if active_game == games.untangle:
 		untangle_game.play_trans_in_anim()
 		rope_untangle = true
 		armR_animated_sprite_2d.animation = "open"
+		_show_shoutout(7)
 		
 		var tween = get_tree().create_tween()
 		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
@@ -89,10 +95,26 @@ func _play_game_trans_in():
 		tween.tween_property(armL_palm,"global_position",Vector2(700,160),0.6)
 		await tween.finished
 		tween.kill()
+		
+	if active_game == games.chalk:
+		chalk_game.play_trans_in_anim()
+		chalk_bag = true
+		armR_animated_sprite_2d.animation = "open"
+		_show_shoutout(3)
+		
+		var tween = get_tree().create_tween()
+		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
+		await tween.finished
+		tween.kill()
+		armL_animated_sprite_2d.animation = "chalk"
+		tween = get_tree().create_tween()
+		tween.tween_property(armL_palm,"global_position",Vector2(600,260),0.6)
+		await tween.finished
+		tween.kill()
 
 
 func _play_minigame() -> void:
-	active_game = games.untangle
+	active_game = games.chalk
 	change_game()
 
 
@@ -122,6 +144,7 @@ var hand_is_closed: bool
 var climb_both_hands:bool = true
 var climb_rope:bool = false
 var rope_untangle:bool = false
+var chalk_bag:bool = false
 
 signal hand_inactive
 
@@ -154,8 +177,6 @@ func _input(event: InputEvent) -> void:
 				hand_is_closed = false
 				armR_animated_sprite_2d.animation = "open"
 				armL_animated_sprite_2d.animation = "open"
-			
-
 
 
 func _physics_process(_delta: float) -> void:
@@ -187,7 +208,6 @@ func _physics_process(_delta: float) -> void:
 					armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x
 				armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
 				armR_palm.move_and_slide()
-				
 				armR.z_index = 1
 				armL.z_index = 0
 	
@@ -206,7 +226,6 @@ func _physics_process(_delta: float) -> void:
 					armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
 				armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
 				armR_palm.move_and_slide()
-				
 				armR.z_index = 1
 				armL.z_index = 0
 	
@@ -215,7 +234,14 @@ func _physics_process(_delta: float) -> void:
 			armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
 			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
 			armR_palm.move_and_slide()
+			armR.z_index = 1
+			armL.z_index = 0
 			
+	elif chalk_bag:
+		if hand_is_active:
+			armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
+			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
+			armR_palm.move_and_slide()
 			armR.z_index = 1
 			armL.z_index = 0
 
@@ -229,8 +255,47 @@ func _on_untangle_game_rope_hold_change(held: bool) -> void:
 		if held:
 			hand_is_closed = true
 			armR_animated_sprite_2d.animation = "rope_close"
-
 		else:
 			hand_is_closed = false
 			armR_animated_sprite_2d.animation = "open"
-		
+
+
+func _on_untangle_disable():
+	var tween = get_tree().create_tween()
+	tween.tween_property(armL_palm,"global_position",Vector2(700,160),0.2)
+	await tween.finished
+	tween.kill()
+	tween = get_tree().create_tween()
+	tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
+	await tween.finished
+	tween.kill()
+	armL_animated_sprite_2d.animation = "open"
+
+
+func _show_shoutout(index:int):
+	shoutouts.frame = index
+	shoutouts.show()
+	await get_tree().create_timer(1).timeout
+	shoutouts.hide()
+
+
+func _on_untangle_game_finish_minigame() -> void:
+	_on_untangle_disable()
+
+
+func _on_chalk_game_finish_minigame() -> void:
+	var tween = get_tree().create_tween()
+	tween.tween_property(armL_palm,"global_position",Vector2(600,250),0.2)
+	await tween.finished
+	tween.kill()
+	tween = get_tree().create_tween()
+	tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
+	await tween.finished
+	tween.kill()
+	armL_animated_sprite_2d.animation = "open"
+
+
+func _on_chalk_game_tap() -> void:
+	armR_animated_sprite_2d.animation = "close"
+	await get_tree().create_timer(0.1).timeout
+	armR_animated_sprite_2d.animation = "open"

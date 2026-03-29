@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtcn44fqk6s0i"]
+
+[ext_resource type="Script" uid="uid://c0jkude4pv1g4" path="res://game/chalk_game.gd" id="1_ym72o"]
+[ext_resource type="Texture2D" uid="uid://bxhhq7bkcyqo8" path="res://assets/Hands_Spritesheet.png" id="2_r4fq7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1s5by"]
+atlas = ExtResource("2_r4fq7")
+region = Rect2(457, 30, 38, 40)
+
+[sub_resource type="Gradient" id="Gradient_rudxe"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.31764707)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ym72o"]
+radius = 19.235384
+
+[node name="ChalkGame" type="Node2D"]
+script = ExtResource("1_ym72o")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(104, 46)
+emitting = false
+amount = 4
+texture = SubResource("AtlasTexture_1s5by")
+one_shot = true
+explosiveness = 0.69
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.21
+initial_velocity_max = 20.84
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_rudxe")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(104, 46)
+shape = SubResource("CircleShape2D_ym72o")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
