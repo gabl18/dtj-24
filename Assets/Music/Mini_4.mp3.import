@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/Mini_4.mp3-9735c4d5940d1f091d85a0d62a25f5dd.m
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
-beat_count=0
+loop=true
+loop_offset=0.0
+bpm=170.0
+beat_count=16
 bar_beats=4
