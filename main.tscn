@@ -512,7 +512,7 @@ speed_scale = 0.5
 
 [node name="Countdown" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(182, 531)
+position = Vector2(579, 332)
 scale = Vector2(4, 4)
 texture = ExtResource("12_w48qg")
 hframes = 3
