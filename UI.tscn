@@ -1,14 +1,14 @@
-[gd_scene load_steps=60 format=3 uid="uid://cy8dbpby5bjm6"]
+[gd_scene load_steps=58 format=3 uid="uid://cy8dbpby5bjm6"]
 
 [ext_resource type="Script" uid="uid://5bi2bds72guf" path="res://ui.gd" id="1_iejap"]
-[ext_resource type="Texture2D" uid="uid://ds470jvadcdq6" path="res://assets/TestBG.png" id="1_r2x2w"]
-[ext_resource type="Texture2D" uid="uid://c5vc6jaanvxaq" path="res://assets/mountain.png" id="2_iejap"]
-[ext_resource type="Shader" uid="uid://m7y48aru6ed8" path="res://flag.gdshader" id="3_cfuqe"]
-[ext_resource type="Texture2D" uid="uid://cmuahtikmp7st" path="res://assets/title.png" id="4_rhufb"]
-[ext_resource type="Texture2D" uid="uid://wi6jpmi1os3h" path="res://assets/by.png" id="6_fqnwy"]
-[ext_resource type="Texture2D" uid="uid://bs0qs5xhiljju" path="res://assets/Buttons.png" id="7_cfuqe"]
-[ext_resource type="Texture2D" uid="uid://dhhhdirytnnpa" path="res://assets/Volume+SFX.png" id="7_cpurt"]
-[ext_resource type="Texture2D" uid="uid://npgte3dcsmeb" path="res://assets/Knob.png" id="7_rhufb"]
+[ext_resource type="Texture2D" uid="uid://ds470jvadcdq6" path="res://Assets/TestBG.png" id="1_r2x2w"]
+[ext_resource type="Texture2D" uid="uid://c5vc6jaanvxaq" path="res://Assets/mountain.png" id="2_iejap"]
+[ext_resource type="Shader" path="res://flag.gdshader" id="3_cfuqe"]
+[ext_resource type="Texture2D" uid="uid://cmuahtikmp7st" path="res://Assets/title.png" id="4_rhufb"]
+[ext_resource type="Texture2D" uid="uid://wi6jpmi1os3h" path="res://Assets/by.png" id="6_fqnwy"]
+[ext_resource type="Texture2D" uid="uid://bs0qs5xhiljju" path="res://Assets/Buttons.png" id="7_cfuqe"]
+[ext_resource type="Texture2D" uid="uid://dhhhdirytnnpa" path="res://Assets/Volume+SFX.png" id="7_cpurt"]
+[ext_resource type="Texture2D" uid="uid://npgte3dcsmeb" path="res://Assets/Knob.png" id="7_rhufb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cpurt"]
 
@@ -328,19 +328,13 @@ region = Rect2(82, 0, 82, 26)
 atlas = ExtResource("7_cfuqe")
 region = Rect2(0, 0, 90, 46)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fqnwy"]
-load_path = "res://.godot/imported/Buttons.png-40dee453e7513d3ffc4efc07f24c81be.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_cpurt"]
-atlas = SubResource("CompressedTexture2D_fqnwy")
-region = Rect2(90, 0, 90, 46)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ivbii"]
-load_path = "res://.godot/imported/Buttons.png-40dee453e7513d3ffc4efc07f24c81be.ctex"
+atlas = ExtResource("7_cfuqe")
+region = Rect2(180, 0, 90, 46)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rex52"]
-atlas = SubResource("CompressedTexture2D_ivbii")
-region = Rect2(180, 0, 90, 46)
+atlas = ExtResource("7_cfuqe")
+region = Rect2(90, 0, 90, 46)
 
 [node name="UI" type="Control"]
 layout_mode = 3
