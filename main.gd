@@ -9,7 +9,8 @@ enum games {
 	rockgame,
 	rope,
 	untangle,
-	chalk
+	chalk,
+	piton
 }
 
 @onready var climb_timer: Timer = $ClimbTimer
@@ -18,6 +19,7 @@ enum games {
 @onready var rope_game: Node2D = $RopeGame
 @onready var untangle_game: Node2D = $UntangleGame
 @onready var chalk_game: Node2D = $ChalkGame
+@onready var piton_game: Node2D = $PitonGame
 
 var active_game := games.rockgame
 
@@ -56,6 +58,10 @@ func _disable_game():
 		chalk_game.disable()
 		chalk_bag = false
 
+	if active_game != games.piton:
+		piton_game.disable()
+		piton_place = false
+
 
 func _enable_game():
 	if active_game == games.rockgame:
@@ -72,7 +78,11 @@ func _enable_game():
 	if active_game == games.chalk:
 		chalk_game.enable()
 		chalk_bag = true
-
+	
+	if active_game == games.piton:
+		piton_game.enable()
+		piton_place = true
+		
 
 func _play_game_trans_in():
 	if active_game == games.rope:
@@ -111,10 +121,16 @@ func _play_game_trans_in():
 		tween.tween_property(armL_palm,"global_position",Vector2(600,260),0.6)
 		await tween.finished
 		tween.kill()
+	
+	if active_game == games.piton:
+		var tween = get_tree().create_tween()
+		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
+		await tween.finished
+		tween.kill()
 
 
 func _play_minigame() -> void:
-	active_game = games.chalk
+	active_game = games.piton
 	change_game()
 
 
@@ -145,6 +161,7 @@ var climb_both_hands:bool = true
 var climb_rope:bool = false
 var rope_untangle:bool = false
 var chalk_bag:bool = false
+var piton_place:bool = false
 
 signal hand_inactive
 
@@ -244,7 +261,14 @@ func _physics_process(_delta: float) -> void:
 			armR_palm.move_and_slide()
 			armR.z_index = 1
 			armL.z_index = 0
-
+	
+	elif piton_place:
+		if hand_is_active:
+			armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
+			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
+			armR_palm.move_and_slide()
+			armR.z_index = 1
+			armL.z_index = 0
 
 func _on_climb_timer_timeout() -> void:
 	_play_minigame()
@@ -299,3 +323,12 @@ func _on_chalk_game_tap() -> void:
 	armR_animated_sprite_2d.animation = "close"
 	await get_tree().create_timer(0.1).timeout
 	armR_animated_sprite_2d.animation = "open"
+
+
+func _on_piton_game_minigame_finished() -> void:
+	var sprite = piton_game.get_child(0).duplicate()
+	var pos = sprite.global_position
+	rock_game.rocks.add_child(sprite)
+	sprite.global_position = pos
+	await get_tree().create_timer(10).timeout
+	sprite.queue_free()
