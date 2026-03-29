@@ -7,6 +7,7 @@
 radius = 105.82
 
 [node name="CompassGame" type="Node2D"]
+position = Vector2(4, -7)
 script = ExtResource("1_dt753")
 
 [node name="Timer" type="Timer" parent="."]
