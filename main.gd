@@ -1,13 +1,17 @@
 extends Node2D
 
+@onready var border_anim_player: AnimationPlayer = $Border/AnimationPlayer
+
 enum games {
 	rockgame,
-	rope
+	rope,
+	untangle
 }
 @onready var climb_timer: Timer = $ClimbTimer
 
 @onready var rock_game: Node2D = $RockGame
 @onready var rope_game: Node2D = $RopeGame
+@onready var untangle_game: Node2D = $UntangleGame
 
 var active_game := games.rockgame
 
@@ -19,42 +23,68 @@ func _ready() -> void:
 
 
 func change_game():
-	
+	hand_is_closed = false
 	_disable_game()
 	if not active_game == games.rockgame:
 		_play_game_trans_in()
+		border_anim_player.play("trans_in")
 		await get_tree().create_timer(1).timeout
 	_enable_game()
 
 func _disable_game():
 	if active_game != games.rockgame:
 		rock_game.disable()
+		rock_game.modulate = Color(0.385, 0.385, 0.385, 1.0)
 		climb_both_hands = false
 	
 	if active_game != games.rope:
 		rope_game.disable()
 		climb_rope = false
+	
+	if active_game != games.untangle:
+		untangle_game.disable()
+		rope_untangle = false
 
 func _enable_game():
 	if active_game == games.rockgame:
 		rock_game.enable()
+		rock_game.modulate = Color(1.0, 1.0, 1.0, 1.0)
 		climb_both_hands = true
 	
 	if active_game == games.rope:
 		rope_game.enable()
-		climb_rope = true
+
+	if active_game == games.untangle:
+		untangle_game.enable()
+		
 
 func _play_game_trans_in():
 	if active_game == games.rope:
 		rope_game.play_trans_in_anim()
+		climb_rope = true
+		
+	if active_game == games.untangle:
+		untangle_game.play_trans_in_anim()
+		rope_untangle = true
+		armL_animated_sprite_2d.animation = "rope_close"
+		
+		var tween = get_tree().create_tween()
+		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
+		await tween.finished
+		tween.kill()
+		tween = get_tree().create_tween()
+		tween.tween_property(armL_palm,"global_position",Vector2(780,160),0.6)
+		await tween.finished
+		tween.kill()
+
 
 func _play_minigame() -> void:
-	active_game = games.rope
+	active_game = games.untangle
 	change_game()
 
 
 func _finished_minigame():
-	print(121212)
+	border_anim_player.play("trans_out")
 	active_game = games.rockgame
 	change_game()
 	climb_timer.start()
@@ -78,6 +108,7 @@ var hand_is_closed: bool
 
 var climb_both_hands:bool = true
 var climb_rope:bool = false
+var rope_untangle:bool = false
 
 signal hand_inactive
 
@@ -110,6 +141,8 @@ func _input(event: InputEvent) -> void:
 				hand_is_closed = false
 				armR_animated_sprite_2d.animation = "open"
 				armL_animated_sprite_2d.animation = "open"
+			
+
 
 
 func _physics_process(_delta: float) -> void:
@@ -163,7 +196,28 @@ func _physics_process(_delta: float) -> void:
 				
 				armR.z_index = 1
 				armL.z_index = 0
+	
+	elif rope_untangle:
+		if hand_is_active:
+			armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
+			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
+			armR_palm.move_and_slide()
+			
+			armR.z_index = 1
+			armL.z_index = 0
 
 
 func _on_climb_timer_timeout() -> void:
 	_play_minigame()
+
+
+func _on_untangle_game_rope_hold_change(held: bool) -> void:
+	if rope_untangle:
+		if held:
+			hand_is_closed = true
+			armR_animated_sprite_2d.animation = "rope_close"
+
+		else:
+			hand_is_closed = false
+			armR_animated_sprite_2d.animation = "open"
+		

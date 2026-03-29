@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://05angmyaimsw"]
+[gd_scene load_steps=22 format=3 uid="uid://05angmyaimsw"]
 
 [ext_resource type="Script" uid="uid://8ai3q68a6u10" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="Texture2D" uid="uid://bxhhq7bkcyqo8" path="res://assets/Hands_Spritesheet.png" id="2_1bvp3"]
@@ -7,7 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://cixflqrdqeunf" path="res://assets/Arm.png" id="3_lquwl"]
 [ext_resource type="Texture2D" uid="uid://stklbc444mkg" path="res://assets/Arm_Teil2.png" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://tp6dqhxpkmxg" path="res://game/rock.tscn" id="4_efxa6"]
+[ext_resource type="PackedScene" uid="uid://bxklwncxmw8qt" path="res://game/untangle_game.tscn" id="6_4c57u"]
 [ext_resource type="PackedScene" uid="uid://dv8jqlwm5brwi" path="res://rope_game.tscn" id="7_272bh"]
+[ext_resource type="Texture2D" uid="uid://bf0nlrrbufauc" path="res://assets/Rahmen.png" id="9_kek77"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g6gsk"]
 
@@ -56,6 +58,94 @@ size = Vector2(96, 169.91351)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8morq"]
 size = Vector2(92.27301, 464.49713)
 
+[sub_resource type="Animation" id="Animation_4c57u"]
+resource_name = "trans_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-46, -45), Vector2(-5, -2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5.182672, 5.212318), Vector2(4.830106, 4.6695914)]
+}
+
+[sub_resource type="Animation" id="Animation_efxa6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-46, -45.000004)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5.187873, 5.214508)]
+}
+
+[sub_resource type="Animation" id="Animation_dg77c"]
+resource_name = "trans_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-3, -2.999998), Vector2(-46, -45)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4.827042, 4.6798434), Vector2(5.187519, 5.2169557)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ycdy4"]
+_data = {
+&"RESET": SubResource("Animation_efxa6"),
+&"trans_in": SubResource("Animation_4c57u"),
+&"trans_out": SubResource("Animation_dg77c")
+}
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_7mycd")
 
@@ -81,6 +171,10 @@ stretch_mode = 4
 
 [node name="RopeGame" parent="." instance=ExtResource("7_272bh")]
 visible = false
+
+[node name="UntangleGame" parent="." instance=ExtResource("6_4c57u")]
+visible = false
+position = Vector2(-46, -45.000004)
 
 [node name="ArmR" type="Node2D" parent="."]
 position = Vector2(521, -870)
@@ -261,9 +355,24 @@ shape = SubResource("CircleShape2D_g6gsk")
 wait_time = 5.0
 one_shot = true
 
+[node name="Border" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(-46, -45.000004)
+scale = Vector2(5.187873, 5.214508)
+texture = ExtResource("9_kek77")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Border"]
+libraries = {
+&"": SubResource("AnimationLibrary_ycdy4")
+}
+speed_scale = 5.0
+
 [connection signal="hand_inactive" from="." to="RockGame" method="_on_main_hand_inactive"]
 [connection signal="hand_inactive" from="." to="RopeGame" method="_on_main_hand_inactive"]
+[connection signal="hand_inactive" from="." to="UntangleGame" method="_on_main_hand_inactive"]
 [connection signal="finish_minigame" from="RopeGame" to="." method="_finished_minigame"]
+[connection signal="rope_hold_change" from="UntangleGame" to="." method="_on_untangle_game_rope_hold_change"]
 [connection signal="timeout" from="ClimbTimer" to="." method="_on_climb_timer_timeout"]
 
 [editable path="RockGame/Rocks/Rock"]
