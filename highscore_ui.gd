@@ -21,7 +21,7 @@ func _on_button_pressed() -> void:
 			$Button.disabled = true
 			var highscore = all_highscores.get($TextEdit.text)
 			if highscore:
-				if score > highscore:
+				if score < highscore:
 					database.save_highscore($TextEdit.text,score)
 			else:
 				database.save_highscore($TextEdit.text,score)
