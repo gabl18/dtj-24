@@ -6,33 +6,48 @@ var rope_start_offset: Vector2
 
 var active: bool
 
-@export var rope_max_shake: int = 2000
-@export var rope_max_vel: float = 10
+@export var rope_max_shake: float = 3
+@export var rope_max_vel: float = 30
 
 signal rope_hold_change(held:bool)
 signal finish_minigame
+
 
 func disable():
 	hide()
 	active = false
 	$Line2D.points[-1] = Vector2(855.0,160.0)
+	rope_is_pressed = false
+
 
 func play_trans_in_anim():
-	await get_tree().create_timer(0.4).timeout
+	await get_tree().create_timer(1).timeout
 	show()
-	
+
+
 func play_trans_out_anim():
-	await get_tree().create_timer(0.4).timeout
-	hide()
-	
+	pass
+
 
 func enable():
 	show()
 	active = true
+	rope_is_pressed = false
 
 
 func _ready() -> void:
 	pass
+
+func _input(event: InputEvent) -> void:
+	if active:
+		if event is InputEventMouseMotion:
+			if event.relative.length() > rope_max_vel:
+				rope_max_shake -= get_process_delta_time()
+				
+				if rope_max_shake < 0:
+					rope_max_shake = 3
+					hide()
+					finish_minigame.emit()
 
 
 func _process(_delta: float) -> void:
@@ -63,5 +78,6 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 				rope_start_offset = get_global_mouse_position() - $Line2D.points[-1]
 
 func _on_main_hand_inactive() -> void:
-	rope_is_pressed = false
-	rope_hold_change.emit(false)
+	if active:
+		rope_is_pressed = false
+		rope_hold_change.emit(false)

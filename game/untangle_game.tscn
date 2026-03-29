@@ -4,13 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://chsbt6xteuqgm" path="res://assets/Rope_vertical.png" id="1_u07wu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n3qgl"]
-radius = 77.10383
+radius = 163.54
 
 [node name="UntangleGame" type="Node2D"]
 script = ExtResource("1_8kvvw")
 
 [node name="Line2D" type="Line2D" parent="."]
-z_index = 2
 position = Vector2(-7, 48.000004)
 points = PackedVector2Array(797, 141, 855, 160)
 width = 50.0
