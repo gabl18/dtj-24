@@ -21,3 +21,9 @@ func set_value(val:float):
 
 func _on_main_win() -> void:
 	$ConfettiCannon.emitting = true
+
+
+func _on_wheel_winwin() -> void:
+	$ConfettiCannon.one_shot = false
+	$ConfettiCannon.emitting = true
+	$ConfettiCannon2.emitting = true
