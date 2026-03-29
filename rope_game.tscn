@@ -62,6 +62,7 @@ _data = {
 script = ExtResource("1_ifrgl")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_offset = Vector2(23, 0)
 repeat_size = Vector2(0, 873)
 
 [node name="TextureRect" type="TextureRect" parent="Parallax2D"]
@@ -71,12 +72,13 @@ offset_right = 618.0
 offset_bottom = -867.0
 texture = ExtResource("2_ifrgl")
 stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(533, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(9, 382.625)
+position = Vector2(32, 382.625)
 shape = SubResource("RectangleShape2D_lyb0g")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

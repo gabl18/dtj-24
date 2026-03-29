@@ -24,6 +24,9 @@ func disable():
 	
 
 func enable():
+	rock_is_pressed = false
+	mouse_on_rock = false
+	mouse_rock_start_height = 0
 	active = true
 
 
@@ -80,6 +83,7 @@ func _rock_input_event(__,event:InputEvent,___):
 		if event is InputEventMouseButton:
 			if event.is_pressed() and not event.is_echo():
 				rock_is_pressed = true
+				
 				mouse_rock_start_height = height - event.position.y
 			elif event.is_released():
 				rock_is_pressed = false

@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var border_anim_player: AnimationPlayer = $Border/AnimationPlayer
+@onready var countdown_anim_player: AnimationPlayer = $Countdown/AnimationPlayer
 
 
 @onready var shoutouts: Sprite2D = $Shoutouts
@@ -36,6 +37,7 @@ func change_game():
 	hand_is_closed = false
 	_disable_game()
 	if not active_game == games.rockgame:
+		countdown_anim_player.play("coundown")
 		_play_game_trans_in()
 		border_anim_player.play("trans_in")
 		await get_tree().create_timer(1).timeout
@@ -125,6 +127,7 @@ func _play_game_trans_in():
 		tween.kill()
 	
 	if active_game == games.piton:
+		_show_shoutout(3)
 		piton_place = true
 		armR_animated_sprite_2d.animation = "point"
 		var tween = get_tree().create_tween()
@@ -218,15 +221,15 @@ func _physics_process(_delta: float) -> void:
 		if hand_is_active:
 			if active_hand_is_L:
 				if not hand_is_closed:
-					armL_palm.global_position.x = (mouse_pos.x - armL_palm.global_position.x) * 0.9 + armL_palm.global_position.x
-				armL_palm.global_position.y = (mouse_pos.y - armL_palm.global_position.y) * 0.9 + armL_palm.global_position.y
+					armL_palm.global_position.x = (mouse_pos.x - armL_palm.global_position.x) * 0.5 + armL_palm.global_position.x
+				armL_palm.global_position.y = (mouse_pos.y - armL_palm.global_position.y) * 0.5 + armL_palm.global_position.y
 				armL.z_index = 1
 				armR.z_index = 0
 
 			else:
 				if not hand_is_closed:
-					armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.9 + armR_palm.global_position.x
-				armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.9 + armR_palm.global_position.y
+					armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.5 + armR_palm.global_position.x
+				armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.5 + armR_palm.global_position.y
 				armR.z_index = 1
 				armL.z_index = 0
 	
@@ -234,15 +237,15 @@ func _physics_process(_delta: float) -> void:
 		if hand_is_active:
 			if active_hand_is_L:
 				if not hand_is_closed:
-					armL_palm.global_position.x = clamp((mouse_pos.x - armL_palm.global_position.x) * 0.9 + armL_palm.global_position.x, 0, get_viewport_rect().size.x/2)
-				armL_palm.global_position.y = (mouse_pos.y - armL_palm.global_position.y) * 0.9 + armL_palm.global_position.y
+					armL_palm.global_position.x = clamp((mouse_pos.x - armL_palm.global_position.x) * 0.7 + armL_palm.global_position.x, 0, get_viewport_rect().size.x/2)
+				armL_palm.global_position.y = (mouse_pos.y - armL_palm.global_position.y) * 0.7 + armL_palm.global_position.y
 				armL.z_index = 1
 				armR.z_index = 0
 
 			else:
 				if not hand_is_closed:
-					armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.9 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
-				armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.9 + armR_palm.global_position.y
+					armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.7 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
+				armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.7 + armR_palm.global_position.y
 				armR.z_index = 1
 				armL.z_index = 0
 	
@@ -255,15 +258,15 @@ func _physics_process(_delta: float) -> void:
 			
 	elif chalk_bag:
 		if hand_is_active:
-			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.9 + armR_palm.global_position.x
-			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.9 + armR_palm.global_position.y
+			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.7 + armR_palm.global_position.x
+			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.7 + armR_palm.global_position.y
 			armR.z_index = 1
 			armL.z_index = 0
 	
 	elif piton_place:
 		if hand_is_active:
-			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.9 + armR_palm.global_position.x
-			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.9 + armR_palm.global_position.y
+			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.7 + armR_palm.global_position.x
+			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.7 + armR_palm.global_position.y
 			armR.z_index = 1
 			armL.z_index = 0
 
