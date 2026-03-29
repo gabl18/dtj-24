@@ -17,3 +17,7 @@ func set_value(val:float):
 	$AnimationPlayer.play("wiggle")
 	await tween.finished
 	$AnimationPlayer.pause()
+
+
+func _on_main_win() -> void:
+	$ConfettiCannon.emitting = true

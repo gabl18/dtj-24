@@ -6,6 +6,8 @@ extends Node2D
 
 @onready var shoutouts: Sprite2D = $Shoutouts
 
+signal win
+
 enum games {
 	rockgame,
 	rope,
@@ -32,6 +34,7 @@ var height: float
 
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	climb_timer.start()
 	armL_animated_sprite_2d.animation = "open"
 	armR_animated_sprite_2d.animation = "open"
@@ -381,6 +384,7 @@ func _on_rock_game_height_updated(h: float) -> void:
 
 func _final_minigame():
 	pass
+	win.emit()
 
 
 func _on_compass_game_minigame_finished() -> void:
