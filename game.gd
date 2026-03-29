@@ -407,9 +407,19 @@ func _final_minigame():
 	
 	if height >= goal_height + 0.3:
 		rock_game.won = true
+		
 		await get_tree().create_tween().tween_property(rock_game,"height",-finale.position.y,4).finished
-	
+		%Wheel.enable()
+		climb_both_hands = false
+		piton_place = true
+		armR_animated_sprite_2d.animation = "point"
 		win.emit()
+		
+		var tween = get_tree().create_tween()
+		tween.tween_property(armL_palm,"global_position",Vector2(-50,450),0.4)
+		await tween.finished
+		tween.kill()
+
 
 
 

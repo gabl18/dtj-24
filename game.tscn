@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://05angmyaimsw"]
+[gd_scene load_steps=46 format=3 uid="uid://05angmyaimsw"]
 
 [ext_resource type="Script" uid="uid://8ai3q68a6u10" path="res://game.gd" id="1_rvswv"]
 [ext_resource type="Script" uid="uid://bmi5rphu0p5gp" path="res://game/rock_game.gd" id="2_boyg6"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://tp6dqhxpkmxg" path="res://game/rock.tscn" id="4_hb5m1"]
 [ext_resource type="Texture2D" uid="uid://b8g0xblb46wob" path="res://assets/Gipfelwand.png" id="5_boyg6"]
 [ext_resource type="PackedScene" uid="uid://dv8jqlwm5brwi" path="res://game/rope_game.tscn" id="5_x5p1p"]
+[ext_resource type="Script" uid="uid://dv61e2hka0gxl" path="res://game/wheel.gd" id="6_hb5m1"]
 [ext_resource type="PackedScene" uid="uid://bxklwncxmw8qt" path="res://game/untangle_game.tscn" id="6_qhcbd"]
 [ext_resource type="PackedScene" uid="uid://dtcn44fqk6s0i" path="res://game/chalk_game.tscn" id="7_f1jbl"]
+[ext_resource type="Texture2D" uid="uid://0pq6iyx1ek4r" path="res://assets/wheeltest.png" id="7_x5p1p"]
 [ext_resource type="PackedScene" uid="uid://bvxc0rl0klert" path="res://game/piton_game.tscn" id="8_vaj68"]
 [ext_resource type="PackedScene" uid="uid://cj8ei066aieq8" path="res://game/compass_game.tscn" id="9_i2p71"]
 [ext_resource type="Texture2D" uid="uid://bxhhq7bkcyqo8" path="res://assets/Hands_Spritesheet.png" id="10_xa8c5"]
@@ -19,6 +21,13 @@
 [ext_resource type="Script" uid="uid://bfl3e0ihb3q7t" path="res://game/progress_bar.gd" id="16_7knny"]
 [ext_resource type="Texture2D" uid="uid://bcwg5t6pwbmjg" path="res://assets/progress.png" id="17_082n1"]
 [ext_resource type="Texture2D" uid="uid://crtxghvuxvyf3" path="res://assets/Manschkerl.png" id="18_xex6t"]
+
+[sub_resource type="Curve" id="Curve_hb5m1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.28528526, 0.17004764), 0.0, 0.0, 0, 0, Vector2(0.36036035, 0.45704055), 0.0, 0.0, 0, 0, Vector2(0.59159154, 0.573389), 0.0, 0.0, 0, 0, Vector2(0.71171165, 0.79057276), 0.0, 0.0, 0, 0, Vector2(0.8648648, 0.85262525), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 7
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qhcbd"]
+radius = 46.400425
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_074og"]
 atlas = ExtResource("10_xa8c5")
@@ -436,6 +445,7 @@ _data = {
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_rvswv")
+goal_height = 5
 
 [node name="RockGame" type="Node2D" parent="."]
 script = ExtResource("2_boyg6")
@@ -463,6 +473,22 @@ position = Vector2(-23, -530.00006)
 scale = Vector2(5, 5)
 texture = ExtResource("5_boyg6")
 centered = false
+
+[node name="Wheel" type="Node2D" parent="RockGame/Rocks/Finale"]
+unique_name_in_owner = true
+position = Vector2(193, 91.20001)
+script = ExtResource("6_hb5m1")
+kurve = SubResource("Curve_hb5m1")
+
+[node name="Sprite2D" type="Sprite2D" parent="RockGame/Rocks/Finale/Wheel"]
+position = Vector2(1.1999999, 2.6)
+texture = ExtResource("7_x5p1p")
+
+[node name="Area2D" type="Area2D" parent="RockGame/Rocks/Finale/Wheel"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RockGame/Rocks/Finale/Wheel/Area2D"]
+position = Vector2(0, 6.1392784e-06)
+shape = SubResource("CircleShape2D_qhcbd")
 
 [node name="RopeGame" parent="." instance=ExtResource("5_x5p1p")]
 visible = false
@@ -561,9 +587,10 @@ script = ExtResource("16_7knny")
 [node name="ConfettiCannon" type="CPUParticles2D" parent="ProgressBar"]
 position = Vector2(-1.5, -51.75)
 emitting = false
-amount = 140
-lifetime = 1.73
-explosiveness = 0.18
+amount = 100
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.88
 randomness = 0.19
 lifetime_randomness = 0.11
 direction = Vector2(0.6, -1)
@@ -594,6 +621,7 @@ speed_scale = 1.5
 [connection signal="hand_inactive" from="." to="UntangleGame" method="_on_main_hand_inactive"]
 [connection signal="win" from="." to="ProgressBar" method="_on_main_win"]
 [connection signal="height_updated" from="RockGame" to="." method="_on_rock_game_height_updated"]
+[connection signal="input_event" from="RockGame/Rocks/Finale/Wheel/Area2D" to="RockGame/Rocks/Finale/Wheel" method="_on_area_2d_input_event"]
 [connection signal="finish_minigame" from="RopeGame" to="." method="_finished_minigame"]
 [connection signal="finish_minigame" from="UntangleGame" to="." method="_finished_minigame"]
 [connection signal="finish_minigame" from="UntangleGame" to="." method="_on_untangle_game_finish_minigame"]
