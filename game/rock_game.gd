@@ -11,13 +11,13 @@ var mouse_on_rock: bool
 var rock_is_pressed: bool
 var mouse_rock_start_height: float
 
-var rock_recently_spawned: bool = true
 var spawn_rock_L: bool = false
 
 
 var active: bool = true
 
 @export var rock_distance: int = 500
+var last_rock_distance: int = 0
 
 func disable():
 	active = false
@@ -41,13 +41,9 @@ func _process(_delta: float) -> void:
 		if rock_is_pressed:
 			height = clamp(get_local_mouse_position().y + mouse_rock_start_height,height,INF)
 		
-		if int(height) % rock_distance <= 200:
-			if not rock_recently_spawned:
-				_reposition_rock()
-				
-				rock_recently_spawned = true
-		else:
-			rock_recently_spawned = false
+		if int(height) > last_rock_distance + rock_distance:
+			_reposition_rock()
+			last_rock_distance = last_rock_distance + rock_distance
 		
 		
 		parallax_2d.scroll_offset.y = height
