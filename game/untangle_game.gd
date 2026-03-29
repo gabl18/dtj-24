@@ -42,7 +42,7 @@ func _input(event: InputEvent) -> void:
 	if active:
 		if event is InputEventMouseMotion:
 			if event.relative.length() > rope_max_vel:
-				rope_max_shake -= get_process_delta_time()
+				rope_max_shake -= 0.025
 				
 				if rope_max_shake < 0:
 					rope_max_shake = 3

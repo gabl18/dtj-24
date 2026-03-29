@@ -28,6 +28,8 @@ var height: float
 
 func _ready() -> void:
 	climb_timer.start()
+	armL_animated_sprite_2d.animation = "open"
+	armR_animated_sprite_2d.animation = "open"
 
 
 func change_game():
@@ -146,11 +148,11 @@ func _finished_minigame():
 @onready var armR: Node2D = $ArmR
 @onready var armL: Node2D = $ArmL
 
-@onready var armR_palm: CharacterBody2D = $ArmR/Palm
-@onready var armL_palm: CharacterBody2D = $ArmL/Palm
+@onready var armR_palm: AnimatedSprite2D = $ArmR/Palm
+@onready var armL_palm: AnimatedSprite2D = $ArmL/Palm
 
-@onready var armR_animated_sprite_2d: AnimatedSprite2D = $ArmR/Palm/AnimatedSprite2D
-@onready var armL_animated_sprite_2d: AnimatedSprite2D = $ArmL/Palm/AnimatedSprite2D
+@onready var armR_animated_sprite_2d: AnimatedSprite2D = $ArmR/Palm
+@onready var armL_animated_sprite_2d: AnimatedSprite2D = $ArmL/Palm
 
 var mouse_hover_zoneL: bool
 var mouse_hover_zoneR: bool
@@ -216,17 +218,15 @@ func _physics_process(_delta: float) -> void:
 		if hand_is_active:
 			if active_hand_is_L:
 				if not hand_is_closed:
-					armL_palm.global_position.x = (mouse_pos.x - armL_palm.global_position.x) * 0.4 + armL_palm.global_position.x
-				armL_palm.global_position.y = (mouse_pos.y - armL_palm.global_position.y) * 0.4 + armL_palm.global_position.y
-				armL_palm.move_and_slide()
+					armL_palm.global_position.x = (mouse_pos.x - armL_palm.global_position.x) * 0.9 + armL_palm.global_position.x
+				armL_palm.global_position.y = (mouse_pos.y - armL_palm.global_position.y) * 0.9 + armL_palm.global_position.y
 				armL.z_index = 1
 				armR.z_index = 0
 
 			else:
 				if not hand_is_closed:
-					armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x
-				armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
-				armR_palm.move_and_slide()
+					armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.9 + armR_palm.global_position.x
+				armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.9 + armR_palm.global_position.y
 				armR.z_index = 1
 				armL.z_index = 0
 	
@@ -234,41 +234,36 @@ func _physics_process(_delta: float) -> void:
 		if hand_is_active:
 			if active_hand_is_L:
 				if not hand_is_closed:
-					armL_palm.global_position.x = clamp((mouse_pos.x - armL_palm.global_position.x) * 0.4 + armL_palm.global_position.x, 0, get_viewport_rect().size.x/2)
-				armL_palm.global_position.y = (mouse_pos.y - armL_palm.global_position.y) * 0.4 + armL_palm.global_position.y
-				armL_palm.move_and_slide()
+					armL_palm.global_position.x = clamp((mouse_pos.x - armL_palm.global_position.x) * 0.9 + armL_palm.global_position.x, 0, get_viewport_rect().size.x/2)
+				armL_palm.global_position.y = (mouse_pos.y - armL_palm.global_position.y) * 0.9 + armL_palm.global_position.y
 				armL.z_index = 1
 				armR.z_index = 0
 
 			else:
 				if not hand_is_closed:
-					armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
-				armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
-				armR_palm.move_and_slide()
+					armR_palm.global_position.x = clamp((mouse_pos.x - armR_palm.global_position.x) * 0.9 + armR_palm.global_position.x, get_viewport_rect().size.x/2, get_viewport_rect().size.x)
+				armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.9 + armR_palm.global_position.y
 				armR.z_index = 1
 				armL.z_index = 0
 	
 	elif rope_untangle:
 		if hand_is_active:
-			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x
-			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
-			armR_palm.move_and_slide()
+			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.9 + armR_palm.global_position.x
+			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.9 + armR_palm.global_position.y
 			armR.z_index = 1
 			armL.z_index = 0
 			
 	elif chalk_bag:
 		if hand_is_active:
-			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x
-			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
-			armR_palm.move_and_slide()
+			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.9 + armR_palm.global_position.x
+			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.9 + armR_palm.global_position.y
 			armR.z_index = 1
 			armL.z_index = 0
 	
 	elif piton_place:
 		if hand_is_active:
-			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.4 + armR_palm.global_position.x
-			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.4 + armR_palm.global_position.y
-			armR_palm.move_and_slide()
+			armR_palm.global_position.x = (mouse_pos.x - armR_palm.global_position.x) * 0.9 + armR_palm.global_position.x
+			armR_palm.global_position.y = (mouse_pos.y - armR_palm.global_position.y) * 0.9 + armR_palm.global_position.y
 			armR.z_index = 1
 			armL.z_index = 0
 
@@ -326,14 +321,18 @@ func _on_chalk_game_tap() -> void:
 	await get_tree().create_timer(0.1).timeout
 	armR_animated_sprite_2d.animation = "open"
 
+const PITON = preload("uid://byt2wiakne7e3")
+
 
 func _on_piton_game_minigame_finished() -> void:
-	var sprite = piton_game.get_child(0).duplicate()
-	var pos = sprite.global_position
-	rock_game.rocks.add_child(sprite)
-	sprite.global_position = pos
-	await get_tree().create_timer(10).timeout
-	sprite.queue_free()
+	var inst = PITON.instantiate()
+	rock_game.rocks.add_child(inst)
+	inst.connect("mouse_entered",rock_game._rock_mouse_entered)
+	inst.connect("mouse_exited",rock_game._rock_mouse_exited)
+	inst.connect("input_event",rock_game._rock_input_event)
+	inst.global_position = piton_game.get_child(0).global_position
+	await get_tree().create_timer(20).timeout
+	inst.queue_free()
 
 
 func _on_piton_game_point_down() -> void:

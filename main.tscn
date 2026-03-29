@@ -1,11 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://05angmyaimsw"]
+[gd_scene load_steps=24 format=3 uid="uid://05angmyaimsw"]
 
 [ext_resource type="Script" uid="uid://8ai3q68a6u10" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="Texture2D" uid="uid://bxhhq7bkcyqo8" path="res://assets/Hands_Spritesheet.png" id="2_1bvp3"]
 [ext_resource type="Script" uid="uid://bmi5rphu0p5gp" path="res://game/rock_game.gd" id="2_kek77"]
 [ext_resource type="Texture2D" uid="uid://bbey0qqe0rsg4" path="res://assets/Background.png" id="3_4c57u"]
-[ext_resource type="Texture2D" uid="uid://cixflqrdqeunf" path="res://assets/Arm.png" id="3_lquwl"]
-[ext_resource type="Texture2D" uid="uid://stklbc444mkg" path="res://assets/Arm_Teil2.png" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://tp6dqhxpkmxg" path="res://game/rock.tscn" id="4_efxa6"]
 [ext_resource type="PackedScene" uid="uid://bxklwncxmw8qt" path="res://game/untangle_game.tscn" id="6_4c57u"]
 [ext_resource type="PackedScene" uid="uid://dv8jqlwm5brwi" path="res://rope_game.tscn" id="7_272bh"]
@@ -14,8 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://bvxc0rl0klert" path="res://game/piton_game.tscn" id="8_w48qg"]
 [ext_resource type="Texture2D" uid="uid://bf0nlrrbufauc" path="res://assets/Rahmen.png" id="9_kek77"]
 [ext_resource type="Texture2D" uid="uid://cax1h3gcc8idt" path="res://assets/Aufforderungen.png" id="12_ycdy4"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_g6gsk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ycdy4"]
 atlas = ExtResource("2_1bvp3")
@@ -99,12 +95,6 @@ animations = [{
 "name": &"rope_close",
 "speed": 5.0
 }]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0ejh"]
-size = Vector2(96, 169.91351)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8morq"]
-size = Vector2(92.27301, 464.49713)
 
 [sub_resource type="Animation" id="Animation_4c57u"]
 resource_name = "trans_in"
@@ -237,194 +227,26 @@ position = Vector2(521, -870)
 rotation = -0.009878978
 scale = Vector2(0.99999994, 0.99999994)
 
-[node name="Line2D" type="Line2D" parent="ArmR"]
-scale = Vector2(1.0000001, 1.0000001)
-
-[node name="Palm" type="CharacterBody2D" parent="ArmR"]
-position = Vector2(121.09284, 902.2403)
-rotation = -0.091519035
-collision_layer = 128
-collision_mask = 128
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmR/Palm"]
-shape = SubResource("CircleShape2D_g6gsk")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ArmR/Palm"]
-scale = Vector2(3, 3)
+[node name="Palm" type="AnimatedSprite2D" parent="ArmR"]
+position = Vector2(121.092896, 902.2405)
+rotation = -0.09151902
+scale = Vector2(3.0000002, 3.0000002)
 sprite_frames = SubResource("SpriteFrames_8morq")
 animation = &"point"
 autoplay = "open"
 
-[node name="PinJoint2D" type="PinJoint2D" parent="ArmR"]
-visible = false
-position = Vector2(166.08298, 1004.6897)
-node_a = NodePath("../Palm")
-node_b = NodePath("../StaticBody2D2")
-
-[node name="StaticBody2D2" type="RigidBody2D" parent="ArmR"]
-visible = false
-position = Vector2(301.39685, 1176.035)
-rotation = -2.3577123
-collision_layer = 0
-collision_mask = 0
-mass = 0.001
-gravity_scale = 0.0
-
-[node name="Arm" type="Sprite2D" parent="ArmR/StaticBody2D2"]
-rotation = 2.0943952
-scale = Vector2(3, 3)
-texture = ExtResource("3_lquwl")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmR/StaticBody2D2"]
-visible = false
-rotation = -1.5555012
-scale = Vector2(0.9540653, -1.8716067)
-shape = SubResource("RectangleShape2D_r0ejh")
-
-[node name="PinJoint2D2" type="PinJoint2D" parent="ArmR"]
-visible = false
-position = Vector2(402.94952, 1323.0453)
-node_a = NodePath("../StaticBody2D2")
-node_b = NodePath("../StaticBody2D3")
-angular_limit_enabled = true
-angular_limit_lower = -0.09250245
-angular_limit_upper = 1.3718288
-
-[node name="StaticBody2D3" type="RigidBody2D" parent="ArmR"]
-visible = false
-position = Vector2(389.915, 1528.9265)
-rotation = -0.40119147
-collision_layer = 0
-collision_mask = 0
-mass = 0.001
-gravity_scale = 0.0
-
-[node name="Testhand" type="Sprite2D" parent="ArmR/StaticBody2D3"]
-position = Vector2(-76.979, 26.442665)
-rotation = 1.1548809
-scale = Vector2(3, 3)
-texture = ExtResource("4_7mycd")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmR/StaticBody2D3"]
-visible = false
-rotation = 0.572833
-scale = Vector2(0.9999999, 0.9999999)
-shape = SubResource("RectangleShape2D_8morq")
-
-[node name="PinJoint2D3" type="PinJoint2D" parent="ArmR"]
-visible = false
-position = Vector2(-146.0094, 1518.6317)
-rotation = -0.091519035
-scale = Vector2(0.69627106, 0.121705905)
-node_a = NodePath("../StaticBody2D3")
-node_b = NodePath("../StaticBody2D4")
-softness = 16.0
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="ArmR"]
-visible = false
-position = Vector2(-146.0094, 1520.6317)
-scale = Vector2(0.69627106, 0.121705905)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmR/StaticBody2D4"]
-visible = false
-shape = SubResource("CircleShape2D_g6gsk")
-
 [node name="ArmL" type="Node2D" parent="."]
-position = Vector2(810, -849.00006)
+position = Vector2(672, -571.99994)
 rotation = 0.49906078
 scale = Vector2(0.99999994, 0.99999994)
 
-[node name="Palm" type="CharacterBody2D" parent="ArmL"]
-position = Vector2(135, 914.99994)
-rotation = -0.091519035
-collision_layer = 128
-collision_mask = 128
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmL/Palm"]
-shape = SubResource("CircleShape2D_g6gsk")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ArmL/Palm"]
+[node name="Palm" type="AnimatedSprite2D" parent="ArmL"]
+position = Vector2(134.99997, 915)
+rotation = -0.09151903
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_8morq")
 animation = &"rope_close"
 flip_h = true
-
-[node name="PinJoint2D" type="PinJoint2D" parent="ArmL"]
-visible = false
-position = Vector2(112.87892, 1013.6027)
-node_a = NodePath("../Palm")
-node_b = NodePath("../StaticBody2D2")
-
-[node name="StaticBody2D2" type="RigidBody2D" parent="ArmL"]
-visible = false
-position = Vector2(83.0513, 1220.0594)
-rotation = -2.3577123
-collision_layer = 0
-collision_mask = 0
-mass = 0.001
-gravity_scale = 0.0
-
-[node name="Sprite2d" type="Sprite2D" parent="ArmL/StaticBody2D2"]
-visible = false
-rotation = 2.0943952
-scale = Vector2(3, 3)
-texture = ExtResource("3_lquwl")
-flip_h = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmL/StaticBody2D2"]
-visible = false
-rotation = -1.5555012
-scale = Vector2(0.9540653, -1.8716067)
-shape = SubResource("RectangleShape2D_r0ejh")
-
-[node name="PinJoint2D2" type="PinJoint2D" parent="ArmL"]
-visible = false
-position = Vector2(39.264893, 1398.8181)
-node_a = NodePath("../StaticBody2D2")
-node_b = NodePath("../StaticBody2D3")
-angular_limit_enabled = true
-angular_limit_lower = -0.09250245
-angular_limit_upper = 1.3718288
-
-[node name="StaticBody2D3" type="RigidBody2D" parent="ArmL"]
-visible = false
-position = Vector2(241.99721, 1614.0404)
-rotation = -2.0591843
-collision_layer = 0
-collision_mask = 0
-mass = 0.001
-gravity_scale = 0.0
-
-[node name="Sprite2d" type="Sprite2D" parent="ArmL/StaticBody2D3"]
-visible = false
-rotation = 0.898568
-scale = Vector2(4, 4)
-texture = ExtResource("3_lquwl")
-flip_h = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmL/StaticBody2D3"]
-visible = false
-rotation = 0.572833
-scale = Vector2(0.9999999, 0.9999999)
-shape = SubResource("RectangleShape2D_8morq")
-
-[node name="PinJoint2D3" type="PinJoint2D" parent="ArmL"]
-visible = false
-position = Vector2(606.2412, 1369.1976)
-rotation = -0.091519035
-scale = Vector2(0.69627106, 0.121705905)
-node_a = NodePath("../StaticBody2D3")
-node_b = NodePath("../StaticBody2D4")
-softness = 16.0
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="ArmL"]
-visible = false
-position = Vector2(604.2413, 1364.1975)
-scale = Vector2(0.69627106, 0.121705905)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmL/StaticBody2D4"]
-visible = false
-shape = SubResource("CircleShape2D_g6gsk")
 
 [node name="ClimbTimer" type="Timer" parent="."]
 wait_time = 5.0

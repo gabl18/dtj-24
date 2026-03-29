@@ -7,6 +7,7 @@ var loop_acuracy: float = 0
 var block := false
 
 func enable():
+	$label/AnimationPlayer.speed_scale = randf_range(0.9,1.1)
 	show()
 	loop_acuracy = 0
 	$label/AnimationPlayer.play("loop")
@@ -32,7 +33,9 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 				minigame_finished.emit()
 			else:
 				block = true
+				$label/AnimationPlayer.speed_scale -= 0.1
 				await get_tree().create_timer(0.8).timeout
 				$label/AnimationPlayer.play("loop")
 				await get_tree().create_timer(0.2).timeout
 				block = false
+				

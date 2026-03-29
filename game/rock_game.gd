@@ -41,7 +41,7 @@ func _process(_delta: float) -> void:
 		if rock_is_pressed:
 			height = clamp(get_local_mouse_position().y + mouse_rock_start_height,height,INF)
 		
-		if int(height) % rock_distance <= 250:
+		if int(height) % rock_distance <= 200:
 			if not rock_recently_spawned:
 				_reposition_rock()
 				
@@ -67,7 +67,7 @@ func _reposition_rock(height_override: float = 0):
 		@warning_ignore("narrowing_conversion")
 		rock.position.x = randi_range(get_viewport_rect().size.x * 0.60, get_viewport_rect().size.x * 0.9)
 
-	rock.global_position.y = -100 + height_override
+	rock.global_position.y = -50 + height_override
 	rock.reset_size()
 
 
