@@ -69,7 +69,8 @@ func _reposition_rock(height_override: float = 0):
 		rock.position.x = randi_range(get_viewport_rect().size.x * 0.60, get_viewport_rect().size.x * 0.9)
 
 	rock.global_position.y = -50 + height_override
-	rock.reset_size()
+	
+	rock.get_child(0).frame = randi_range(0,4)
 
 
 func _rock_mouse_entered():

@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://tp6dqhxpkmxg"]
+[gd_scene load_steps=3 format=3 uid="uid://tp6dqhxpkmxg"]
 
-[ext_resource type="Script" uid="uid://cyrv8unnqqy0k" path="res://game/rock.gd" id="1_7didp"]
 [ext_resource type="Texture2D" uid="uid://dggrhigeictu3" path="res://assets/Rocks.png" id="2_7didp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_exgsa"]
@@ -11,7 +10,6 @@ scale = Vector2(3, 3)
 collision_layer = 256
 collision_mask = 256
 input_pickable = true
-script = ExtResource("1_7didp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.2, 0)
