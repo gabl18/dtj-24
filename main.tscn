@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://05angmyaimsw"]
+[gd_scene load_steps=41 format=3 uid="uid://05angmyaimsw"]
 
 [ext_resource type="Script" uid="uid://8ai3q68a6u10" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="Texture2D" uid="uid://bxhhq7bkcyqo8" path="res://assets/Hands_Spritesheet.png" id="2_1bvp3"]
@@ -393,6 +393,10 @@ _data = {
 &"trans_out": SubResource("Animation_dg77c")
 }
 
+[sub_resource type="Gradient" id="Gradient_074og"]
+offsets = PackedFloat32Array(0, 0.18909091, 0.5272727, 0.78909093, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0.1882353, 1, 0, 0.37254903, 0.5254902, 1, 0, 1, 0, 1, 1, 0, 1, 1)
+
 [sub_resource type="Animation" id="Animation_074og"]
 length = 0.001
 tracks/0/type = "bezier"
@@ -546,6 +550,23 @@ position = Vector2(51, 363)
 scale = Vector2(4, 4)
 script = ExtResource("14_2cqfq")
 
+[node name="ConfettiCannon" type="CPUParticles2D" parent="ProgressBar"]
+position = Vector2(-1.5, -51.75)
+emitting = false
+amount = 140
+lifetime = 1.73
+explosiveness = 0.18
+randomness = 0.19
+lifetime_randomness = 0.11
+direction = Vector2(0.6, -1)
+spread = 30.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 20.64
+initial_velocity_max = 88.11
+scale_amount_min = 4.0
+scale_amount_max = 6.0
+color_initial_ramp = SubResource("Gradient_074og")
+
 [node name="Bar" type="Sprite2D" parent="ProgressBar"]
 position = Vector2(0.5, 1)
 texture = ExtResource("15_yaehf")
@@ -563,19 +584,20 @@ speed_scale = 1.5
 [connection signal="hand_inactive" from="." to="RockGame" method="_on_main_hand_inactive"]
 [connection signal="hand_inactive" from="." to="RopeGame" method="_on_main_hand_inactive"]
 [connection signal="hand_inactive" from="." to="UntangleGame" method="_on_main_hand_inactive"]
+[connection signal="win" from="." to="ProgressBar" method="_on_main_win"]
 [connection signal="height_updated" from="RockGame" to="." method="_on_rock_game_height_updated"]
 [connection signal="finish_minigame" from="RopeGame" to="." method="_finished_minigame"]
-[connection signal="finish_minigame" from="UntangleGame" to="." method="_on_untangle_game_finish_minigame"]
 [connection signal="finish_minigame" from="UntangleGame" to="." method="_finished_minigame"]
+[connection signal="finish_minigame" from="UntangleGame" to="." method="_on_untangle_game_finish_minigame"]
 [connection signal="rope_hold_change" from="UntangleGame" to="." method="_on_untangle_game_rope_hold_change"]
-[connection signal="finish_minigame" from="ChalkGame" to="." method="_on_chalk_game_finish_minigame"]
 [connection signal="finish_minigame" from="ChalkGame" to="." method="_finished_minigame"]
+[connection signal="finish_minigame" from="ChalkGame" to="." method="_on_chalk_game_finish_minigame"]
 [connection signal="tap" from="ChalkGame" to="." method="_on_chalk_game_tap"]
-[connection signal="minigame_finished" from="PitonGame" to="." method="_on_piton_game_minigame_finished"]
 [connection signal="minigame_finished" from="PitonGame" to="." method="_finished_minigame"]
+[connection signal="minigame_finished" from="PitonGame" to="." method="_on_piton_game_minigame_finished"]
 [connection signal="point_down" from="PitonGame" to="." method="_on_piton_game_point_down"]
-[connection signal="minigame_finished" from="CompassGame" to="." method="_on_compass_game_minigame_finished"]
 [connection signal="minigame_finished" from="CompassGame" to="." method="_finished_minigame"]
+[connection signal="minigame_finished" from="CompassGame" to="." method="_on_compass_game_minigame_finished"]
 [connection signal="timeout" from="ClimbTimer" to="." method="_on_climb_timer_timeout"]
 
 [editable path="RockGame/Rocks/Rock"]

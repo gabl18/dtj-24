@@ -1,5 +1,6 @@
-[gd_scene load_steps=49 format=3 uid="uid://cy8dbpby5bjm6"]
+[gd_scene load_steps=50 format=3 uid="uid://cy8dbpby5bjm6"]
 
+[ext_resource type="Script" uid="uid://5bi2bds72guf" path="res://ui.gd" id="1_iejap"]
 [ext_resource type="Texture2D" uid="uid://ds470jvadcdq6" path="res://assets/TestBG.png" id="1_r2x2w"]
 [ext_resource type="Texture2D" uid="uid://c5vc6jaanvxaq" path="res://assets/mountain.png" id="2_iejap"]
 [ext_resource type="Shader" uid="uid://m7y48aru6ed8" path="res://flag.gdshader" id="3_cfuqe"]
@@ -311,6 +312,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_iejap")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.08627451, 0.78431374, 1, 1)
