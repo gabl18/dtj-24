@@ -5,8 +5,9 @@ var all_highscores: Dictionary
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	all_highscores = await database.get_all_highscores()
 
+	all_highscores = await database.get_all_highscores()
+	print(all_highscores)
 
 var score: float:
 	set(value):
@@ -15,7 +16,7 @@ var score: float:
 
 
 func _on_button_pressed() -> void:
-	if all_highscores:
+	if all_highscores != null:
 		if $TextEdit.text:
 			$Button.disabled = true
 			var highscore = all_highscores.get($TextEdit.text)

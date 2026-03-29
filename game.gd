@@ -35,6 +35,7 @@ var won: bool = false
 
 
 func _ready() -> void:
+	randomize()
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	climb_timer.start()
 	armL_animated_sprite_2d.animation = "open"

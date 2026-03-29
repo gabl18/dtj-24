@@ -4,6 +4,7 @@ signal start_game
 
 @onready var music_slider: HSlider = %Music_Slider
 @onready var sfx_slider: HSlider = %SFX_Slider
+@onready var texture_button: TextureButton = $MarginContainer/VBoxContainer2/TextureButton
 
 
 func _ready() -> void:
