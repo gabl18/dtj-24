@@ -44,6 +44,18 @@ func _disable_game():
 	if active_game != games.untangle:
 		untangle_game.disable()
 		rope_untangle = false
+		
+		
+		var tween = get_tree().create_tween()
+		tween.tween_property(armL_palm,"global_position",Vector2(700,160),0.6)
+		await tween.finished
+		tween.kill()
+		armL_animated_sprite_2d.animation = "open"
+		tween = get_tree().create_tween()
+		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
+		await tween.finished
+		tween.kill()
+
 
 func _enable_game():
 	if active_game == games.rockgame:
@@ -66,7 +78,7 @@ func _play_game_trans_in():
 	if active_game == games.untangle:
 		untangle_game.play_trans_in_anim()
 		rope_untangle = true
-		armL_animated_sprite_2d.animation = "rope_close"
+		armR_animated_sprite_2d.animation = "open"
 		
 		var tween = get_tree().create_tween()
 		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
@@ -74,7 +86,7 @@ func _play_game_trans_in():
 		tween.kill()
 		armL_animated_sprite_2d.animation = "rope"
 		tween = get_tree().create_tween()
-		tween.tween_property(armL_palm,"global_position",Vector2(780,160),0.6)
+		tween.tween_property(armL_palm,"global_position",Vector2(700,160),0.6)
 		await tween.finished
 		tween.kill()
 

@@ -381,6 +381,7 @@ speed_scale = 5.0
 [connection signal="hand_inactive" from="." to="RopeGame" method="_on_main_hand_inactive"]
 [connection signal="hand_inactive" from="." to="UntangleGame" method="_on_main_hand_inactive"]
 [connection signal="finish_minigame" from="RopeGame" to="." method="_finished_minigame"]
+[connection signal="finish_minigame" from="UntangleGame" to="." method="_finished_minigame"]
 [connection signal="rope_hold_change" from="UntangleGame" to="." method="_on_untangle_game_rope_hold_change"]
 [connection signal="timeout" from="ClimbTimer" to="." method="_on_climb_timer_timeout"]
 
