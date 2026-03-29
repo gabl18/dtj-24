@@ -20,11 +20,10 @@ var active: bool = true
 @export var rock_distance: int = 500
 
 func disable():
-	$Rocks.hide()
 	active = false
+	
 
 func enable():
-	$Rocks.show()
 	active = true
 
 
