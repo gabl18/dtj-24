@@ -7,6 +7,10 @@ signal start_game
 
 
 func _ready() -> void:
+	
+	MusicPlayer.music.stream = MusicPlayer.MINI_4
+	MusicPlayer.music.play()
+	
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	var music_db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music"))

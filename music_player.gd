@@ -10,4 +10,4 @@ const MINI_3 = preload("uid://ciiessa0bw1os")
 const MINI_4 = preload("uid://buhvq2tntd7xx")
 
 func get_random_mini_track():
-	return [MINI_1,MINI_2,MINI_3,MINI_4].pick_random()
+	return [MINI_1,MINI_2,MINI_3].pick_random()

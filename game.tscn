@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://05angmyaimsw"]
+[gd_scene load_steps=49 format=3 uid="uid://05angmyaimsw"]
 
 [ext_resource type="Script" uid="uid://8ai3q68a6u10" path="res://game.gd" id="1_rvswv"]
 [ext_resource type="Script" uid="uid://bmi5rphu0p5gp" path="res://game/rock_game.gd" id="2_boyg6"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://bfl3e0ihb3q7t" path="res://game/progress_bar.gd" id="16_7knny"]
 [ext_resource type="Texture2D" uid="uid://bcwg5t6pwbmjg" path="res://assets/progress.png" id="17_082n1"]
 [ext_resource type="Texture2D" uid="uid://crtxghvuxvyf3" path="res://assets/Manschkerl.png" id="18_xex6t"]
+[ext_resource type="PackedScene" uid="uid://camotbxdvlcxf" path="res://game/stopwatch.tscn" id="23_qhcbd"]
 
 [sub_resource type="GDScript" id="GDScript_hb5m1"]
 resource_name = "Flaggenzug"
@@ -655,12 +656,21 @@ libraries = {
 }
 speed_scale = 1.5
 
+[node name="Stopwatch" parent="." instance=ExtResource("23_qhcbd")]
+unique_name_in_owner = true
+z_index = 24
+offset_left = 948.0
+offset_top = -7.0
+offset_right = 948.0
+offset_bottom = -7.0
+
 [connection signal="hand_inactive" from="." to="RockGame" method="_on_main_hand_inactive"]
 [connection signal="hand_inactive" from="." to="RopeGame" method="_on_main_hand_inactive"]
 [connection signal="hand_inactive" from="." to="UntangleGame" method="_on_main_hand_inactive"]
 [connection signal="win" from="." to="ProgressBar" method="_on_main_win"]
 [connection signal="height_updated" from="RockGame" to="." method="_on_rock_game_height_updated"]
 [connection signal="flag_height_value_changed" from="RockGame/Rocks/Finale/Wheel" to="RockGame/Rocks/Finale" method="_on_wheel_flag_height_value_changed"]
+[connection signal="winwin" from="RockGame/Rocks/Finale/Wheel" to="." method="_on_wheel_winwin"]
 [connection signal="winwin" from="RockGame/Rocks/Finale/Wheel" to="ProgressBar" method="_on_wheel_winwin"]
 [connection signal="input_event" from="RockGame/Rocks/Finale/Wheel/Area2D" to="RockGame/Rocks/Finale/Wheel" method="_on_area_2d_input_event"]
 [connection signal="finish_minigame" from="RopeGame" to="." method="_finished_minigame"]
@@ -673,8 +683,8 @@ speed_scale = 1.5
 [connection signal="minigame_finished" from="PitonGame" to="." method="_finished_minigame"]
 [connection signal="minigame_finished" from="PitonGame" to="." method="_on_piton_game_minigame_finished"]
 [connection signal="point_down" from="PitonGame" to="." method="_on_piton_game_point_down"]
-[connection signal="minigame_finished" from="CompassGame" to="." method="_finished_minigame"]
 [connection signal="minigame_finished" from="CompassGame" to="." method="_on_compass_game_minigame_finished"]
+[connection signal="minigame_finished" from="CompassGame" to="." method="_finished_minigame"]
 [connection signal="timeout" from="ClimbTimer" to="." method="_on_climb_timer_timeout"]
 
 [editable path="RockGame/Rocks/Rock"]

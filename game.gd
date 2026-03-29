@@ -403,6 +403,8 @@ func _final_minigame():
 		climb_timer.stop()
 		finale.global_position.y = -600
 		finale.show()
+		MusicPlayer.music.stream = MusicPlayer.MINI_4
+		MusicPlayer.music.play()
 	won = true
 	
 	if height >= goal_height + 0.3:
@@ -420,13 +422,16 @@ func _final_minigame():
 		await tween.finished
 		tween.kill()
 
-
-
-
-
 func _on_compass_game_minigame_finished() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
 	await tween.finished
 	tween.kill()
 	armL_animated_sprite_2d.animation = "open"
+
+
+func _on_wheel_winwin() -> void:
+	var time = %Stopwatch.stop()
+	await get_tree().create_timer(5).timeout
+	get_tree().get_first_node_in_group("main").game_done(time)
+	

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://2v5rxfm8iy7q"]
+
+[ext_resource type="Script" uid="uid://b0tog6gck46yt" path="res://database_test.gd" id="1_388c7"]
+
+[node name="DatabaseTest" type="Node"]
+script = ExtResource("1_388c7")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

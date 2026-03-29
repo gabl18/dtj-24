@@ -39,6 +39,7 @@ func _input(event: InputEvent) -> void:
 			if flag_height_value >= 1:
 				active = false
 				winwin.emit()
+				
 
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

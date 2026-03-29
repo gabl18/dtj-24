@@ -60,6 +60,7 @@ _data = {
 
 [node name="RopeGame" type="Node2D"]
 script = ExtResource("1_ifrgl")
+rope_max_height = 3000
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 scroll_offset = Vector2(23, 0)

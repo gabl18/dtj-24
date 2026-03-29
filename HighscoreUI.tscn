@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://u2fh21jyomaj"]
+
+[ext_resource type="Script" uid="uid://bdf2nijw5kntp" path="res://highscore_ui.gd" id="1_bqx3u"]
+[ext_resource type="Texture2D" uid="uid://ds470jvadcdq6" path="res://assets/TestBG.png" id="2_hvgb7"]
+[ext_resource type="PackedScene" uid="uid://2v5rxfm8iy7q" path="res://database_test.tscn" id="3_td5uq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cpurt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_td5uq"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_cxnco"]
+font_size = 40
+
+[node name="HighscoreUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bqx3u")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.08627451, 0.78431374, 1, 1)
+material = SubResource("ShaderMaterial_cpurt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_hvgb7")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 239.0
+offset_top = 74.0
+offset_right = 886.0
+offset_bottom = 143.0
+text = "Wanna save you Score?"
+label_settings = SubResource("LabelSettings_td5uq")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 271.0
+offset_top = 183.0
+offset_right = 715.0
+offset_bottom = 283.0
+label_settings = SubResource("LabelSettings_cxnco")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 0
+offset_left = 279.0
+offset_top = 322.0
+offset_right = 679.0
+offset_bottom = 372.0
+placeholder_text = "Your Nickname:"
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 0
+offset_left = 323.0
+offset_top = 429.0
+offset_right = 331.0
+offset_bottom = 437.0
+text = "Submit"
+
+[node name="Button2" type="Button" parent="."]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 0
+offset_left = 334.0
+offset_top = 570.0
+offset_right = 734.0
+offset_bottom = 670.0
+text = "No Thanks!"
+
+[node name="Database" parent="." instance=ExtResource("3_td5uq")]
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

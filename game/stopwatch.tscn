@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://camotbxdvlcxf"]
+
+[ext_resource type="Script" uid="uid://rajwv7tcx22q" path="res://game/stopwatch.gd" id="1_ryc0q"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ryc0q"]
+font_size = 44
+
+[node name="Stopwatch" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ryc0q")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_right = 67.0
+offset_bottom = 35.0
+text = "12121212"
+label_settings = SubResource("LabelSettings_ryc0q")
+horizontal_alignment = 2
