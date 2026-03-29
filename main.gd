@@ -72,6 +72,7 @@ func _play_game_trans_in():
 		tween.tween_property(armL_palm,"global_position",Vector2(-50,250),0.4)
 		await tween.finished
 		tween.kill()
+		armL_animated_sprite_2d.animation = "rope"
 		tween = get_tree().create_tween()
 		tween.tween_property(armL_palm,"global_position",Vector2(780,160),0.6)
 		await tween.finished

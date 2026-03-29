@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://05angmyaimsw"]
+[gd_scene load_steps=23 format=3 uid="uid://05angmyaimsw"]
 
 [ext_resource type="Script" uid="uid://8ai3q68a6u10" path="res://main.gd" id="1_7mycd"]
 [ext_resource type="Texture2D" uid="uid://bxhhq7bkcyqo8" path="res://assets/Hands_Spritesheet.png" id="2_1bvp3"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://tp6dqhxpkmxg" path="res://game/rock.tscn" id="4_efxa6"]
 [ext_resource type="PackedScene" uid="uid://bxklwncxmw8qt" path="res://game/untangle_game.tscn" id="6_4c57u"]
 [ext_resource type="PackedScene" uid="uid://dv8jqlwm5brwi" path="res://rope_game.tscn" id="7_272bh"]
+[ext_resource type="Texture2D" uid="uid://buv786b8xuiq4" path="res://assets/Tangled_Rope.png" id="8_efxa6"]
 [ext_resource type="Texture2D" uid="uid://bf0nlrrbufauc" path="res://assets/Rahmen.png" id="9_kek77"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g6gsk"]
@@ -41,6 +42,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_efxa6")
+}],
+"loop": true,
+"name": &"rope",
 "speed": 5.0
 }, {
 "frames": [{
@@ -193,7 +202,7 @@ shape = SubResource("CircleShape2D_g6gsk")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ArmR/Palm"]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_8morq")
-animation = &"open"
+animation = &"rope"
 autoplay = "open"
 
 [node name="PinJoint2D" type="PinJoint2D" parent="ArmR"]
