@@ -164,8 +164,8 @@ func _play_game_trans_in():
 
 
 func _play_minigame() -> void:
-	#active_game = randi_range(1,5) as games
-	active_game = games.compass
+	active_game = randi_range(1,5) as games
+
 	change_game()
 
 

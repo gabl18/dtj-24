@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://c0jkude4pv1g4" path="res://game/chalk_game.gd" id="1_ym72o"]
 [ext_resource type="Texture2D" uid="uid://bxhhq7bkcyqo8" path="res://assets/Hands_Spritesheet.png" id="2_r4fq7"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1s5by"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4fq7"]
 atlas = ExtResource("2_r4fq7")
-region = Rect2(457, 30, 38, 40)
+region = Rect2(470, 31, 38, 40)
 
 [sub_resource type="Gradient" id="Gradient_rudxe"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.31764707)
@@ -21,7 +21,7 @@ z_index = 1
 position = Vector2(104, 46)
 emitting = false
 amount = 4
-texture = SubResource("AtlasTexture_1s5by")
+texture = SubResource("AtlasTexture_r4fq7")
 one_shot = true
 explosiveness = 0.69
 spread = 180.0

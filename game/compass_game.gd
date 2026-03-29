@@ -5,11 +5,14 @@ signal minigame_finished
 var pressed := false
 var active = false
 
+var offset_rotation
+
 func enable():
 	show()
 	active = true
-	$Sprite2D.rotation = randf_range(PI * 2/3, PI*4/3)
-
+	offset_rotation = randf_range(PI * 2/3, PI*4/3)
+	$Sprite2D.rotation = offset_rotation + deg_to_rad(22.5)
+	
 func disable():
 	hide()
 	active = false
@@ -23,18 +26,21 @@ func _input(event: InputEvent) -> void:
 			var current_mouse_angle = $Sprite2D.to_local(event.position).angle()
 			var angle_delta = current_mouse_angle - last_mouse_angle
 			angle_delta = fposmod(angle_delta + PI, PI * 2) - PI
-			$Sprite2D.rotation += angle_delta * rotation_speed_factor
+			offset_rotation += angle_delta * rotation_speed_factor
 			
 			last_mouse_angle = current_mouse_angle
+			
+			$Sprite2D.rotation = offset_rotation + deg_to_rad(22.5)
 
 
 func _process(_delta: float) -> void:
 	if active:
-		if wrapf($Sprite2D.rotation,0,TAU) + 1 < 1.1 and wrapf($Sprite2D.rotation,0,TAU) + 1 > 0.9:
+		
+		if wrapf(offset_rotation,0,TAU) + 1 < 1.1 and wrapf(offset_rotation,0,TAU) + 1 > 0.9:
 			if not $Timer.time_left:
 				$Timer.start()
 				await $Timer.timeout
-				if wrapf($Sprite2D.rotation,0,TAU) + 1 < 1.1 and wrapf($Sprite2D.rotation,0,TAU) + 1 > 0.9:
+				if wrapf(offset_rotation,0,TAU) + 1 < 1.1 and wrapf(offset_rotation,0,TAU) + 1 > 0.9:
 					minigame_finished.emit()
 
 
