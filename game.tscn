@@ -1,9 +1,10 @@
-[gd_scene load_steps=41 format=3 uid="uid://05angmyaimsw"]
+[gd_scene load_steps=42 format=3 uid="uid://05angmyaimsw"]
 
 [ext_resource type="Script" uid="uid://8ai3q68a6u10" path="res://game.gd" id="1_rvswv"]
 [ext_resource type="Script" uid="uid://bmi5rphu0p5gp" path="res://game/rock_game.gd" id="2_boyg6"]
 [ext_resource type="Texture2D" uid="uid://bbey0qqe0rsg4" path="res://assets/Background.png" id="3_e36ub"]
 [ext_resource type="PackedScene" uid="uid://tp6dqhxpkmxg" path="res://game/rock.tscn" id="4_hb5m1"]
+[ext_resource type="Texture2D" uid="uid://b8g0xblb46wob" path="res://assets/Gipfelwand.png" id="5_boyg6"]
 [ext_resource type="PackedScene" uid="uid://dv8jqlwm5brwi" path="res://game/rope_game.tscn" id="5_x5p1p"]
 [ext_resource type="PackedScene" uid="uid://bxklwncxmw8qt" path="res://game/untangle_game.tscn" id="6_qhcbd"]
 [ext_resource type="PackedScene" uid="uid://dtcn44fqk6s0i" path="res://game/chalk_game.tscn" id="7_f1jbl"]
@@ -443,8 +444,8 @@ script = ExtResource("2_boyg6")
 repeat_size = Vector2(0, 1600)
 
 [node name="TextureRect" type="TextureRect" parent="RockGame/Parallax2D"]
-offset_left = -28.0
-offset_right = 212.0
+offset_left = -23.000002
+offset_right = 217.0
 offset_bottom = 320.0
 scale = Vector2(5, 5)
 texture = ExtResource("3_e36ub")
@@ -455,6 +456,13 @@ stretch_mode = 4
 [node name="Rock" parent="RockGame/Rocks" instance=ExtResource("4_hb5m1")]
 
 [node name="Rock2" parent="RockGame/Rocks" instance=ExtResource("4_hb5m1")]
+
+[node name="Finale" type="Sprite2D" parent="RockGame/Rocks"]
+visible = false
+position = Vector2(-23, -530.00006)
+scale = Vector2(5, 5)
+texture = ExtResource("5_boyg6")
+centered = false
 
 [node name="RopeGame" parent="." instance=ExtResource("5_x5p1p")]
 visible = false

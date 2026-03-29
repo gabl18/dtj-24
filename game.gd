@@ -27,10 +27,11 @@ enum games {
 @onready var compass_game: Node2D = $CompassGame
 
 @export var goal_height = 100
-
+var prev_game
 var active_game := games.rockgame
 
 var height: float
+var won: bool = false
 
 
 func _ready() -> void:
@@ -177,8 +178,11 @@ func _play_game_trans_in():
 
 
 func _play_minigame() -> void:
-	active_game = randi_range(1,5) as games
-
+	while true:
+		active_game = randi_range(1,5) as games
+		if active_game != prev_game:
+			break
+	prev_game = active_game
 	change_game()
 
 
@@ -391,10 +395,23 @@ func _on_rock_game_height_updated(h: float) -> void:
 	$ProgressBar.value = height/goal_height
 	if height >= goal_height:
 		_final_minigame()
+		
+@onready var finale: Sprite2D = $RockGame/Rocks/Finale
 
 func _final_minigame():
-	pass
-	win.emit()
+	if not won:
+		climb_timer.stop()
+		finale.global_position.y = -600
+		finale.show()
+	won = true
+	
+	if height >= goal_height + 0.3:
+		rock_game.won = true
+		await get_tree().create_tween().tween_property(rock_game,"height",-finale.position.y,4).finished
+	
+		win.emit()
+
+
 
 
 func _on_compass_game_minigame_finished() -> void:
