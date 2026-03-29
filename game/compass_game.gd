@@ -48,6 +48,8 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 	if active:
 		if event is InputEventMouseButton:
 			if event.is_pressed() and not event.is_echo():
+				MusicPlayer.sfx.stream = MusicPlayer.CLICK
+				MusicPlayer.sfx.play()
 				pressed = true
 				last_mouse_angle = $Sprite2D.to_local(event.position).angle()
 			elif event.is_released():

@@ -35,51 +35,76 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_hvgb7")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 239.0
-offset_top = 74.0
-offset_right = 886.0
-offset_bottom = 143.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 120
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
 text = "Wanna save your Score?"
 label_settings = SubResource("LabelSettings_td5uq")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="."]
-layout_mode = 0
-offset_left = 271.0
-offset_top = 183.0
-offset_right = 715.0
-offset_bottom = 283.0
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 80)
+layout_mode = 2
 label_settings = SubResource("LabelSettings_cxnco")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="TextEdit" type="TextEdit" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 50)
-layout_mode = 0
-offset_left = 279.0
-offset_top = 322.0
-offset_right = 679.0
-offset_bottom = 372.0
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_cxnco")
+theme_override_font_sizes/font_size = 21
 placeholder_text = "Your Nickname:"
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 100)
-layout_mode = 0
-offset_left = 323.0
-offset_top = 429.0
-offset_right = 331.0
-offset_bottom = 437.0
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_cxnco")
+theme_override_font_sizes/font_size = 25
 text = "Submit"
 
-[node name="Button2" type="Button" parent="."]
-custom_minimum_size = Vector2(400, 100)
-layout_mode = 0
-offset_left = 334.0
-offset_top = 570.0
-offset_right = 734.0
-offset_bottom = 670.0
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 70)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_cxnco")
+theme_override_font_sizes/font_size = 23
 text = "No Thanks!"
+
+[node name="ItemList" type="ItemList" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_cxnco")
+theme_override_font_sizes/font_size = 18
 
 [node name="Database" parent="." instance=ExtResource("3_td5uq")]
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

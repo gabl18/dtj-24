@@ -24,6 +24,8 @@ func _ready() -> void:
 
 
 func _on_texture_button_pressed() -> void:
+	MusicPlayer.sfx.stream = MusicPlayer.CLICK
+	MusicPlayer.sfx.play()
 	start_game.emit()
 
 

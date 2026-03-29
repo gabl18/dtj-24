@@ -25,4 +25,4 @@ func highscore_done():
 	hUI.queue_free()
 	ui = UI.instantiate()
 	add_child(ui)
-	ui.texture_button.pressed.connect(start_game)
+	ui.start_game.connect(start_game)

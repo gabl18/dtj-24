@@ -91,6 +91,8 @@ func _rock_input_event(__,event:InputEvent,___):
 					rock_is_pressed = true
 					
 					mouse_rock_start_height = height - event.position.y
+					MusicPlayer.sfx.stream = MusicPlayer.get_random_stone_noise()
+					MusicPlayer.sfx.play()
 				elif event.is_released():
 					rock_is_pressed = false
 

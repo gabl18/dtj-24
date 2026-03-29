@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://camotbxdvlcxf"]
+[gd_scene load_steps=4 format=3 uid="uid://camotbxdvlcxf"]
 
 [ext_resource type="Script" uid="uid://rajwv7tcx22q" path="res://game/stopwatch.gd" id="1_ryc0q"]
+[ext_resource type="FontFile" uid="uid://by63f0ffiad0q" path="res://assets/Font/BubblyMess.otf" id="2_mjpmy"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ryc0q"]
+font = ExtResource("2_mjpmy")
 font_size = 44
 
 [node name="Stopwatch" type="Control"]

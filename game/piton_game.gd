@@ -28,6 +28,8 @@ func _loop_stop():
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed() and not event.is_echo():
+			MusicPlayer.sfx.stream = MusicPlayer.CLICK
+			MusicPlayer.sfx.play()
 			_loop_stop() 
 			if (0.2 < loop_acuracy and loop_acuracy < 0.3):
 				minigame_finished.emit()
